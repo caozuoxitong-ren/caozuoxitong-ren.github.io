@@ -2,6 +2,9 @@ site_name: 人的操作系统
 site_dir: site
 docs_dir: docs
 
+# Copyright
+copyright: '人的操作系统 版权所有 Copyright © 2025 caozuoxitong.ren All Rights Reserved.'
+
 # 导航
 nav:
   - 简介: index.md
@@ -31,9 +34,3 @@ theme:
           icon: material/toggle-switch-off-outline
           name: Switch to dark mode
   language: zh
-
-extra:
-  social:
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/squidfunk
-  copyright: Copyright &copy; 2020 - 2025 caozuoxitong.ren All Rights Reserved.
