@@ -2,6 +2,8 @@ site_name: 人的操作系统
 site_dir: site
 docs_dir: docs
 
+
+
 # Copyright
 copyright: '人的操作系统 版权所有 Copyright © 2025 caozuoxitong.ren All Rights Reserved.'
 
@@ -11,26 +13,27 @@ nav:
   - 技术文章:
     - 用GitHub Pages搭建个人网站: 20250118-githubpages.md
 
-
 # 主题设置
 theme:
   name: material
   features:
     - navigation.tabs
-    # - navigation.tabs.sticky 固定顶部导航栏
   palette:
       # Toggle light mode
       - scheme: default
         primary: white
         accent: red
         toggle:
-          icon: material/toggle-switch
-          name: Switch to light mode
+          icon: material/weather-sunny
+          name: Switch to dark mode
       # Toggle dark mode
       - scheme: slate
         primary: black
         accent: teal
         toggle:
-          icon: material/toggle-switch-off-outline
-          name: Switch to dark mode
+          icon: material/weather-night
+          name: Switch to light mode
   language: zh
+  font:
+    text: 'Fira Sans'
+    code: 'Fira Mono'

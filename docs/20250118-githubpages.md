@@ -65,7 +65,7 @@ GitHub Pages 是由 GitHub 提供的静态网站托管服务，直接与代码�
 MkDocs是一个快速、简单、华丽的静态网站生成器，适用于构建项目文档。
 
 1. 同步github仓库：`git clone https://github.com/<用户名>/<用户名>.github.io.git`，此时本地电脑上应该有一个项目目录：`<用户名>.github.io`
-2. 使用mkdocs生成网站：进入项目目录`<用户名>.github.io`，然后输入：`mkdocs new .`(注意，最后有个点，表示在当前)。
+2. 使用mkdocs生成网站：进入项目目录`<用户名>.github.io`，然后输入：`mkdocs new .`(注意，最后有个点，表示在当前目录下)。
 3. 生成网站静态文件：运行命令 `mkdocs build`，可以在site目录下查看。
 4. 本地测试：运行命令 `mkdocs serve`，即可在本地测试预览网站 http://127.0.0.1:8000/
 5. 创建跳转页面。如果使用了自定义域名，github pages会默认从根目录下寻找index.html文件，可以直接在根目录下创建一个跳转页面 index.html，链接到site/index.html，内容如下：
