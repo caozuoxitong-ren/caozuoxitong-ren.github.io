@@ -1,1 +1,41 @@
-site_name: My Docs
+site_name: 人的操作系统
+site_dir: site
+docs_dir: docs
+
+# 导航
+nav:
+  - 简介: index.md
+  - 人的操作系统:
+    - hello: hello.md
+  - 技术文章:
+    - 用GitHub Pages搭建个人网站: 20250118-githubpages.md
+
+
+# 主题设置
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    # - navigation.tabs.sticky 固定顶部导航栏
+  palette:
+      # Toggle light mode
+      - scheme: default
+        primary: white
+        accent: red
+        toggle:
+          icon: material/toggle-switch
+          name: Switch to light mode
+      # Toggle dark mode
+      - scheme: slate
+        primary: black
+        accent: teal
+        toggle:
+          icon: material/toggle-switch-off-outline
+          name: Switch to dark mode
+  language: zh
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/squidfunk
+  copyright: Copyright &copy; 2020 - 2025 caozuoxitong.ren All Rights Reserved.
