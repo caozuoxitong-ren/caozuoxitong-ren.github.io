@@ -4,7 +4,7 @@ docs_dir: docs
 
 # 导航
 nav:
-  - 简介: 20250118-githubpages.md
+  - 简介: index.md
   - 技术文章:
     - 用GitHub Pages搭建个人网站: 20250118-githubpages.md
 
