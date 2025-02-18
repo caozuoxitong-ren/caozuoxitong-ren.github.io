@@ -122,6 +122,6 @@ nav:
 
 重新构建mkdocs build和同步到github仓库中。
 
-# 七、参考文档
-material for mkdocs
-Markdown 教程
+## 七、参考文档
+- [material for mkdocs 中文文档](http://mkdoc-material.llango.com/)
+- [Markdown 教程](https://markdown.com.cn/)
