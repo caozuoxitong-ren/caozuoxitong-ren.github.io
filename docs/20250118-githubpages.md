@@ -98,17 +98,13 @@ MkDocs有一堆很好看的主题，这里我们将使用Material for MkDocs作�
 2. 修改配置文件 `mkdocs.yml`，内容如下：
 
 ```
-site_name: 人的操作系统
-site_dir: site 
-docs_dir: docs
+site_name: 孙悟空的blog
 
 # 主题设置
 theme:
   name: material
   features:
     - navigation.tabs
-    # - navigation.tabs.sticky 固定顶部导航栏
-  language: zh
 
 # 导航
 nav:
@@ -123,5 +119,6 @@ nav:
 重新构建mkdocs build和同步到github仓库中。
 
 ## 七、参考文档
-- [material for mkdocs 中文文档](http://mkdoc-material.llango.com/)
-- [Markdown 教程](https://markdown.com.cn/)
+1. GitHub Pages入门文档：[多语言版](https://pages.github.com/)
+2. material for mkdocs 参考文档：[中文版](http://mkdoc-material.llango.com/) 或 [英文版](https://squidfunk.github.io/mkdocs-material/)
+3. Markdown 教程：[中文版](https://markdown.com.cn/) 或 [英文版](https://www.markdownguide.org/)
