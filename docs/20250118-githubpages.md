@@ -7,8 +7,8 @@ GitHub Pages 是由 GitHub 提供的静态网站托管服务，直接与代码�
 
 1. 免费托管
     - 免费域名：默认提供 https://&lt;username&gt;.github.io 或 https://&lt;<orgname&gt;.github.io/<repo> 的访问地址。
-    - 自动 HTTPS：免费提供 SSL 证书，且证书自动续签更新，保障传输安全。
     - 支持绑定自定义域名：支持将网站关联到自己的域名（如 example.com）。
+    - 自动 HTTPS：免费提供 SSL 证书，且证书自动续签更新，保障传输安全。
     - 无流量费用：适合中小型项目，但需注意 GitHub 的[使用限制](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages#github-pages-%E4%BD%BF%E7%94%A8%E9%99%90%E5%88%B6)。
 2. 与 GitHub 仓库深度集成
     - 自动部署：将代码推送到关联的 GitHub 仓库后，自动构建并部署网站。
