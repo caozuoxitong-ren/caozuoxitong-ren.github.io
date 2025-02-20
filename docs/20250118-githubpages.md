@@ -107,7 +107,7 @@ theme:
   features:
     - navigation.tabs # 顶部横向导航面板
 
-# 目录（手动制定）
+# 导航目录
 nav:
   - 简介: index.md
   - 文章:
