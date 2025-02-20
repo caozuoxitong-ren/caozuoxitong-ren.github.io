@@ -3,8 +3,6 @@ site_name: 人的操作系统
 site_description: 探索和构建人的操作系统
 site_author: Human Operate System Lab
 site_url: https://caozuoxitong.ren
-site_dir: site
-docs_dir: docs
 copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.ren All Rights Reserved.'
 
 # Theme 主题设置
@@ -12,7 +10,6 @@ theme:
   name: material
   features:
     - navigation.tabs
-    - navigation.tabs.sticky 固定顶部导航栏
   language: 'zh'
   font:
     text: 'Fira Sans'

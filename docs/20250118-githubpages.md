@@ -98,15 +98,16 @@ MkDocs有一堆很好看的主题，这里我们将使用Material for MkDocs作�
 2. 修改配置文件 `mkdocs.yml`，内容如下：
 
 ```
-site_name: 孙悟空的blog
+site_name: 孙悟空的blog # 设置网站名称
 
 # 主题设置
 theme:
-  name: material
+  name: material # 使用material主题
+  language: 'zh' # 界面语言设为中文
   features:
-    - navigation.tabs
+    - navigation.tabs # 顶部横向导航面板
 
-# 导航
+# 目录（手动制定）
 nav:
   - 简介: index.md
   - 文章:
