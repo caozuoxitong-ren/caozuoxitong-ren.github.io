@@ -1,23 +1,22 @@
+# Project Information
 site_name: 人的操作系统
+site_description: 探索和构建人的操作系统
+site_author: Human Operate System Lab
+site_url: https://caozuoxitong.ren
 site_dir: site
 docs_dir: docs
-
-
-
-# Copyright
 copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.ren All Rights Reserved.'
 
-# 导航
-nav:
-  - 简介: index.md
-  - 技术文章:
-    - 用GitHub Pages搭建个人网站: 20250118-githubpages.md
-
-# 主题设置
+# Theme 主题设置
 theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.tabs.sticky 固定顶部导航栏
+  language: 'zh'
+  font:
+    text: 'Fira Sans'
+    code: 'Fira Mono'
   palette:
       # Toggle light mode
       - scheme: default
@@ -33,7 +32,9 @@ theme:
         toggle:
           icon: material/weather-night
           name: Switch to light mode
-  language: zh
-  font:
-    text: 'Fira Sans'
-    code: 'Fira Mono'
+
+# Contents 导航
+nav:
+  - 简介: index.md
+  - 技术文章:
+    - 用GitHub Pages搭建个人网站: 20250118-githubpages.md
