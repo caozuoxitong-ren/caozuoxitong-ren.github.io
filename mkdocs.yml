@@ -31,7 +31,7 @@ nav:
         - 1.2.2 实践:
           - 1.2.2.1 止观法门: zhiguan.md
           - 1.2.2.2 念住法门: nianzhu.md
-  - 算法: 'https://oi-wiki.org'
+  - OI算法: 'https://oi-wiki.org'
   - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
   - 搭建个人网站:
     - 用GitHub Pages搭建个人网站: technology/20250118-githubpages.md
