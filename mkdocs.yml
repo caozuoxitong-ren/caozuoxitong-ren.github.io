@@ -11,8 +11,8 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   - 人的操作系统: 
-    - 身心层:
-      - 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
+    - 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
+    - 人体经络系统: body/20200419-meridian-system/20200419-meridian-system.md
   - 技术文章:
     - 用GitHub Pages搭建个人网站: technology/20250118-githubpages.md
   - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
