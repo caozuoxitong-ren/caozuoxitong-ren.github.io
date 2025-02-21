@@ -98,5 +98,5 @@
 [1] 印会河,张伯讷.中医基础理论[M].上海:上海科学技术出版社,1984,18-27.
 
 <div style="text-align: center;">
-<img src="../../../image/weixin-code.png" alt="微信公众号-人的操作系统-二维码" />
+<img src="../../../image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>
