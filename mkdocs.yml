@@ -14,13 +14,13 @@ nav:
   - 身心层→性命观:
     - 1 身:
       - 1.1 理论:
-        - 1.1.1 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
-        - 1.1.2 人体经络系统: body/20200419-meridian-system/20200419-meridian-system.md
-        - 1.1.3 阴阳理论: body/20200119-yin-yang-theory/20200119-yin-yang-theory.md
-        - 1.1.4 五行理论: body/20200119-five-elements-theory/20200119-five-elements-theory.md
+        - 1.1.1 筋膜学理论: body/theory/fasciology/fasciology.md
+        - 1.1.2 人体经络系统: body/theory/meridian-system/meridian-system.md
+        - 1.1.3 阴阳理论: body/theory/yin-yang-theory/yin-yang-theory.md
+        - 1.1.4 五行理论: body/theory/five-elements-theory/five-elements-theory.md
       - 1.2 实践:
-        - 1.2.1 少林洗髓易筋经: body/20230715-yijinjing/20230715-yijinjing.md
-        - 1.2.2 少林内劲一指禅: yizhichan.md
+        - 1.2.1 少林洗髓易筋经: body/practice/yijinjing/yijinjing.md
+        - 1.2.2 少林内劲一指禅: body/practice/neijinyizhichan/neijinyizhichan.md
       #  - 1.2.2 五禽戏: wuqinxi.md
       #  - 1.2.3 六字诀: liuzijue.md
       #  - 1.2.4 八段锦: baduanjin.md
