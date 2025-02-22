@@ -29,7 +29,7 @@ nav:
         - 2.1.1 人体的神经系统: shenjingxitong.md
       - 2.2 实践:
         - 2.2.1 止观法门: zhiguan.md
-        - 2.2.2 念住法门: nianzhu.md
+        - 2.2.2 四念住法门: nianzhu.md
   - 道德层→世界观+价值观:
     - 1 道: dao.md
     - 2 德: de.md
@@ -46,6 +46,7 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.expand
   language: 'zh'
   font:
     text: 'Fira Sans'
