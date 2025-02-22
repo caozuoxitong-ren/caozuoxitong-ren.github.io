@@ -10,32 +10,36 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 # Contents 导航
 nav:
   - 首页: index.md
-  - 人的操作系统: 
-    - 1 身心层:
-      - 1.1 身:
-        - 1.1.1 理论:
-          - 1.1.1.1 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
-          - 1.1.1.2 人体经络系统: body/20200419-meridian-system/20200419-meridian-system.md
-          - 1.1.1.3 阴阳理论: body/20200119-yin-yang-theory/20200119-yin-yang-theory.md
-          - 1.1.1.4 五行理论: body/20200119-five-elements-theory/20200119-five-elements-theory.md
-        - 1.1.2 实践:
-          - 1.1.2.1 易筋经: yijinjing.md
-          - 1.1.2.2 五禽戏: wuqinxi.md
-          - 1.1.2.3 六字诀: liuzijue.md
-          - 1.1.2.4 八段锦: baduanjin.md
-          - 1.1.2.5 内劲一指禅: yizhichan.md
-          - 1.1.2.6 太极拳: taijiquan.md
-      - 1.2 心:
-        - 1.2.1 理论:
-          - 1.2.1.1 人体的神经系统: shenjingxitong.md
-        - 1.2.2 实践:
-          - 1.2.2.1 止观法门: zhiguan.md
-          - 1.2.2.2 念住法门: nianzhu.md
-  - OI算法: 'https://oi-wiki.org'
-  - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
-  - 搭建个人网站:
-    - 用GitHub Pages搭建个人网站: technology/20250118-githubpages.md
-
+  # - 总述: zongshu.md
+  - 身心层→性命观:
+    - 1 身:
+      - 1.1 理论:
+        - 1.1.1 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
+        - 1.1.2 人体经络系统: body/20200419-meridian-system/20200419-meridian-system.md
+        - 1.1.3 阴阳理论: body/20200119-yin-yang-theory/20200119-yin-yang-theory.md
+        - 1.1.4 五行理论: body/20200119-five-elements-theory/20200119-five-elements-theory.md
+      - 1.2 实践:
+        - 1.2.1 少林洗髓易筋经: body/20230715-yijinjing/20230715-yijinjing.md
+        - 1.2.2 少林内劲一指禅: yizhichan.md
+      #  - 1.2.2 五禽戏: wuqinxi.md
+      #  - 1.2.3 六字诀: liuzijue.md
+      #  - 1.2.4 八段锦: baduanjin.md
+    - 2 心:
+      - 2.1 理论:
+        - 2.1.1 人体的神经系统: shenjingxitong.md
+      - 2.2 实践:
+        - 2.2.1 止观法门: zhiguan.md
+        - 2.2.2 念住法门: nianzhu.md
+  - 道德层→世界观+价值观:
+    - 1 道: dao.md
+    - 2 德: de.md
+  - 人生层→人生观: 
+    - 无为证道篇: wuwei.md
+    - 有为施德篇: youwei.md
+  - 同道中人:
+    - 中国: zhongguo.md # 老子、孔子、...、钱学森、...
+    - 西方: xifang.md # 笛卡尔、牛顿、...
+    - 印度: yindu.md # 佛祖、...
 
 # Theme 主题设置
 theme:
