@@ -11,29 +11,35 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 身心层→性命观:
+  - 身心层:
     - 1 身:
       - 1.1 理论:
-        - 1.1.1 筋膜学理论: body/theory/fasciology/fasciology.md
-        - 1.1.2 人体经络系统: body/theory/meridian-system/meridian-system.md
-        - 1.1.3 阴阳理论: body/theory/yin-yang-theory/yin-yang-theory.md
-        - 1.1.4 五行理论: body/theory/five-elements-theory/five-elements-theory.md
+        - 1.1.1 筋膜学理论: anatomical-system/theory/fasciology/fasciology.md
+        - 1.1.2 人体经络系统: anatomical-system/theory/meridian-system/meridian-system.md
+        - 1.1.3 阴阳理论: anatomical-system/theory/yin-yang-theory/yin-yang-theory.md
+        - 1.1.4 五行理论: anatomical-system/theory/five-elements-theory/five-elements-theory.md
       - 1.2 实践:
-        - 1.2.1 少林洗髓易筋经: body/practice/yijinjing/yijinjing.md
-        - 1.2.2 少林内劲一指禅: body/practice/neijinyizhichan/neijinyizhichan.md
+        - 1.2.1 少林洗髓易筋经: anatomical-system/practice/yijinjing/yijinjing.md
+        - 1.2.2 少林内劲一指禅: anatomical-system/practice/neijinyizhichan/neijinyizhichan.md
       #  - 1.2.2 五禽戏: wuqinxi.md
       #  - 1.2.3 六字诀: liuzijue.md
       #  - 1.2.4 八段锦: baduanjin.md
     - 2 心:
       - 2.1 理论:
-        - 2.1.1 人体的神经系统: shenjingxitong.md
+        - 2.1.1 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
+        - 2.1.2 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
+        # - 2.1.2 奖赏回路: jiangshanghuilu.md
+        # - 2.1.3 基底节: jidijie.md
+        # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
+        # - 2.1.5 默认网络: morenwangluo.md
+        # - 2.1.6 注意: zhuyi.md
       - 2.2 实践:
         - 2.2.1 止观法门: zhiguan.md
         - 2.2.2 四念住法门: nianzhu.md
-  - 道德层→世界观+价值观:
+  - 道德层:
     - 1 道: dao.md
     - 2 德: de.md
-  - 人生层→人生观: 
+  - 人生层: 
     - 无为证道篇: wuwei.md
     - 有为施德篇: youwei.md
   - 同道中人:
