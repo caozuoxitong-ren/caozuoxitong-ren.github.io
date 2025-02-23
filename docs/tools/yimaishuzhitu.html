@@ -5,6 +5,7 @@
     <title>义脉树枝图生成器</title>
     <style>
         /* 新增标题样式 */
+        /* 新增标题样式 */
         h1 {
             text-align: center;
             font-size: 3em;
@@ -12,7 +13,7 @@
             margin: 30px 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
- 
+
         /* 优化容器居中 */
         body {
             display: flex;
@@ -22,16 +23,24 @@
             margin: 0;
             background: #f0f4f8;
         }
- 
+
         .container {
             display: flex;
             gap: 20px;
             padding: 20px;
-            justify-content: center; /* 新增水平居中 */
+            justify-content: center;
             width: 90%;
             max-width: 1200px;
         }
- 
+
+        /* 新增按钮容器样式 */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
         textarea {
             width: 500px;
             height: 400px;
@@ -42,16 +51,16 @@
             resize: none;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
- 
+
         button {
-            align-self: center;
             padding: 15px 30px;
             background: #2ecc71;
             font-size: 18px;
             border-radius: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
+            width: 120px; /* 固定按钮宽度 */
         }
- 
+
         button:hover {
             background: #27ae60;
             transform: translateY(-2px);
@@ -84,14 +93,18 @@
 --禅观五步
 -念住高阶"></textarea>
         
-        <button onclick="transferText()">生成 → </button>
-        
+        <!-- 新增按钮容器 -->
+        <div class="button-container">
+            <button onclick="transferText(1)">生成1 →</button>
+            <button onclick="transferText(2)">生成2 →</button>
+        </div>
         <textarea id="outputArea" readonly height="auto"></textarea>
     </div>
  
     <script>
         var tree=[];
-        function transferText() {
+        
+        function transferText(type) {
             tree=[];
             document.getElementById("outputArea").value="";//清空输出框
             // 第一部分，解析成树状结构
@@ -142,16 +155,26 @@
             //先从根结点向叶子结点方向梳理，定位每个结点的绝对行号： = 上下偏移量之间的位置 = (up+down)/2;
             tree[0].up=0, tree[0].down=tree[0].height-1;
             setPos(0,0,tree[0].height-1);//递归实现 setPos(id,up,down);
-            //从前往后检查，如果至少2个孩子，其中第一个孩子的位置与父结点相同，则递归把父结点位置向下调整一个
-            for(var i=0;i<tree.length;i++){
-                var cur=i;
-                while(tree[cur].children.length>=1 && tree[tree[cur].children[0]].targetRow==tree[cur].targetRow){
-                    if(tree[cur].children.length>1) tree[cur].targetRow++;
-                    cur=tree[cur].father;
-                    if(cur<0 || cur>=tree.length) break;
-                    if(tree[cur].children.length==1) tree[cur].targetRow=tree[tree[cur].children[0]].targetRow;
+            
+            if(type==1){//父节点的位置等于所有子结点位置的中间
+                for(var i=tree.length-1;i>=0;i--){
+                    if(tree[i].children.length==0) continue;//叶子结点
+                    tree[i].targetRow=Math.floor((tree[tree[i].children[0]].targetRow+tree[tree[i].children[tree[i].children.length-1]].targetRow)/2);
+                } 
+            }else{//父结点位于整棵子树中间，更强调整体性
+                //从前往后检查，如果至少2个孩子，其中第一个孩子的位置与父结点相同，则递归把父结点位置向下调整一个
+                for(var i=0;i<tree.length;i++){
+                    var cur=i;
+                    while(tree[cur].children.length>=1 && tree[tree[cur].children[0]].targetRow==tree[cur].targetRow){
+                        if(tree[cur].children.length>1) tree[cur].targetRow++;
+                        cur=tree[cur].father;
+                        if(cur<0 || cur>=tree.length) break;
+                        if(tree[cur].children.length==1) tree[cur].targetRow=tree[tree[cur].children[0]].targetRow;
+                    }
                 }
             }
+           
+            
 
             //把输出结果看做一个二维表格，逐层填充
             var top=[],down=[];//top记录每一列的最上面一个节点偏移量，down记录每一列最下面一个节点的偏移量
