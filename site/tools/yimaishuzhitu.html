@@ -104,14 +104,19 @@
     </div>
  
     <script>
+        var s=["诶，干啥呢！\n","阿弥陀佛，施主稍安勿躁!\n","连续点击也是一种乐趣~\n","点得有点多了哟!\n","请在左侧输入目录！！！\n"];
         var tree=[];
-        
+        var cnt=0;//无效点击次数
         function transferText(type) {
             const inputText = document.getElementById("inputArea").value;//获取输入数据
             if(inputText.length==0){
-                document.getElementById("outputArea").value+="请在左侧输入目录！！！\n";
+                cnt++;
+                if(cnt<5) document.getElementById("outputArea").value+="请在左侧输入目录！！！\n";
+                else document.getElementById("outputArea").value += s[Math.ceil(Math.random()*5)-1];
                 return;//无数据，则无操作
             }
+            cnt=0;
+
             // 第一部分，解析成树状结构
             tree=[];
             document.getElementById("outputArea").value="";//清空输出框
