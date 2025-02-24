@@ -71,7 +71,7 @@
 <body>
     <h1>义脉树枝图生成器</h1>
     
-    <div class="container">
+    <div class="container numbers">
         <textarea id="inputArea" placeholder="输入格式说明：
 (1) 第一行表示主题名称，行首没有短线；
 (2) 行首短线每增加一个，目录层级增加一级，短线必须为半角；
@@ -91,10 +91,9 @@
 --第二轮：念住
 --第三轮：念赋义
 -念住中阶
---念行七目
+--念身七目
 --禅观五步
 -念住高阶"></textarea>
-        
         <!-- 新增按钮容器 -->
         <div class="button-container">
             <button onclick="transferText(1)">生成1 →</button>
@@ -102,11 +101,11 @@
         </div>
         <textarea id="outputArea" readonly height="auto"></textarea>
     </div>
- 
     <script>
         var s=["诶，干啥呢！\n","阿弥陀佛，施主稍安勿躁!\n","连续点击也是一种乐趣~\n","点得有点多了哟!\n","请在左侧输入目录！！！\n"];
         var tree=[];
         var cnt=0;//无效点击次数
+
         function transferText(type) {
             //输入交互
             const inputText = document.getElementById("inputArea").value;//获取输入数据
@@ -118,44 +117,41 @@
                 return;//无数据，则无操作
             }
             cnt=0;
+            document.getElementById("outputArea").value="";//清空输出框
 
             // 第一部分，解析成树状结构
             tree=[];
-            document.getElementById("outputArea").value="";//清空输出框
-            var lines1=inputText.split("\n");//按行拆分
-            var lines=[];
-            //删除空行
-            var p=0;
-            for(var i=0;i<lines1.length;i++){
-                if(lines1[i].length!=0) lines[p++]=lines1[i]; 
-            }
-
+            var lines=inputText.split("\n");//按行拆分
             var fa_stk=[];//父结点栈
+            for(var i=0;i<=maxlevel;i++) fa_stk[i]=-1;
             var top=-1;
             fa_stk[++top]=0;
             var maxlevel=0;
-            for(var i=0;i<lines.length;i++){
+            for(var i=0,j=0;j<lines.length;j++){
+                //跳过空行
+                if(lines[j].length==0) continue;
                 //判断当前层级
                 var level=0;
-                while(lines[i][level]=='-')level++;//统计行首短线数量，知道该行层级
+                while(lines[j][level]=='-')level++;//统计行首短线数量，知道该行层级
                 if(level>maxlevel) maxlevel=level;//记录最大深度
-                lines[i]=lines[i].substring(level);//去除行首短线
+                lines[j]=lines[j].substring(level);//去除行首短线
                 //寻找父结点
                 var fa=-1;
                 if(level>0) fa=fa_stk[level-1], fa_stk[level]=i;
                 //记录结点信息，并处理父子关系
-                tree[i]={id:i,value:lines[i],father:fa,children:[],level:level};//树状节点
+                tree[i]={id:i,value:lines[j],father:fa,children:[],level:level};//树状节点
                 if(fa>=0) tree[fa].children.push(i);
+                i++;//有效行加 1
             }
                 
             // 第二部分，输出为横向树状结构
             // 计算每个结点的缩进　＝　父结点的缩进 + 父结点数据宽度 + 制表符宽度
             tree[0].indent=0;//缩进
-            for(var i=1;i<lines.length;i++){
+            for(var i=1;i<tree.length;i++){
                 tree[i].indent=tree[tree[i].father].indent+tree[tree[i].father].value.length;
             }
             //计算每个结点的子树的上下高度 = 孩子结点的上下高度和（自下而上统计即可）
-            for(var i=lines.length-1;i>=0;i--){
+            for(var i=tree.length-1;i>=0;i--){
                 if(tree[i].children.length==0){//叶子结点的上下高度为 1
                     tree[i].height=1;
                 }else{//非叶子结点的高度，为子结点上下高度之和
