@@ -53,7 +53,7 @@
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 30px; 
             background: #2ecc71;
             font-size: 18px;
             border-radius: 25px;
@@ -108,8 +108,10 @@
         var tree=[];
         var cnt=0;//无效点击次数
         function transferText(type) {
+            //输入交互
             const inputText = document.getElementById("inputArea").value;//获取输入数据
             if(inputText.length==0){
+                if(cnt==0) document.getElementById("outputArea").value="";
                 cnt++;
                 if(cnt<5) document.getElementById("outputArea").value+="请在左侧输入目录！！！\n";
                 else document.getElementById("outputArea").value += s[Math.ceil(Math.random()*5)-1];
