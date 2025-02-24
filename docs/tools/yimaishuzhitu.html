@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <title>义脉树枝图生成器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本域显示行号</title>
     <style>
-        /* 新增标题样式 */
         /* 新增标题样式 */
         h1 {
             text-align: center;
             font-size: 3em;
             color: #2c3e50;
-            margin: 30px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 40px 0;
+            /* 减少上下间距(原30px→20px) */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background: #f0f4f8;
         }
 
         /* 优化容器居中 */
@@ -24,55 +27,116 @@
             background: #f0f4f8;
         }
 
-        .container {
+        .main-div {
             display: flex;
-            gap: 20px;
-            padding: 20px;
-            justify-content: center;
-            width: 90%;
-            max-width: 1200px;
+            flex-direction: row;
+            align-items: center;
+            min-height: auto;
+            margin: 30px 0;
         }
 
-        /* 新增按钮容器样式 */
+        /* 按钮容器样式 */
         .button-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
             justify-content: center;
-        }
-
-        textarea {
-            width: 500px;
-            height: 500px;
-            padding: 15px;
-            border: 3px solid #2ecc71;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 0 30px;
+            /* 增加左右间距(原20px→40px) */
         }
 
         button {
-            padding: 15px 30px; 
+            padding: 15px 30px;
             background: #2ecc71;
             font-size: 18px;
             border-radius: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
-            width: 120px; /* 固定按钮宽度 */
+            width: 120px;
+            /* 固定按钮宽度 */
         }
 
         button:hover {
             background: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46,204,113,0.4);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .container {
+            display: flex;
+            border: 1px solid rgb(203 213 225);
+            overflow: hidden;
+            justify-content: center;
+            width: 525px;
+            height: 500px;
+            max-width: 1200px;
+        }
+
+        .numbers {
+            flex: 1;
+            border-right: 1px solid rgb(203 213 225);
+            overflow: hidden;
+            text-align: left;
+            box-sizing: border-box;
+            height: 500px;
+        }
+
+        .textarea {
+            outline: none;
+            min-height: 10rem;
+            overflow-x: hidden;
+            box-sizing: border-box;
+
+            width: 500px;
+            height: 500px;
+            padding: 25px;
+            /*左侧数字编号div的宽度*/
+            border: 3px solid #2ecc71;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .textarea-out {
+            outline: none;
+            min-height: 10rem;
+            overflow-x: hidden;
+            box-sizing: border-box;
+
+            width: 475px;
+            height: 500px;
+            padding: 25px;
+            /*左侧数字编号div的宽度*/
+            border: 3px solid #2ecc71;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar {
+            background: transparent;
+            height: 8px;
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 1;
+            background: rgb(148 163 184);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
         }
     </style>
 </head>
+
 <body>
     <h1>义脉树枝图生成器</h1>
-    
-    <div class="container">
-        <textarea id="inputArea" placeholder="输入格式说明：
+    <div class="main-div">
+        <div class="container">
+            <div class="numbers"></div>
+            <textarea id="inputArea" class="textarea" placeholder="输入格式说明：
 (1) 第一行表示主题名称，行首没有短线；
 (2) 行首短线每增加一个，目录层级增加一级，短线必须为半角；
 (3) 排版默认按全角对齐，若英文或数字对不齐，可用全角输入；
@@ -94,158 +158,177 @@
 --念身七目
 --禅观五步
 -念住高阶"></textarea>
+        </div>
         <!-- 新增按钮容器 -->
         <div class="button-container">
             <button onclick="transferText(1)">生成1 →</button>
             <button onclick="transferText(2)">生成2 →</button>
         </div>
-        <textarea id="outputArea" readonly height="auto"></textarea>
+        <textarea id="outputArea" class="textarea-out" readonly height="auto"></textarea>
     </div>
+
+
     <script>
-        var s=["诶，干啥呢！\n","阿弥陀佛，施主稍安勿躁!\n","连续点击也是一种乐趣~\n","点得有点多了哟!\n","请在左侧输入目录！！！\n"];
-        var tree=[];
-        var cnt=0;//无效点击次数
+        var s = ["诶，干啥呢！\n", "阿弥陀佛，施主稍安勿躁!\n", "连续点击也是一种乐趣~\n", "点得有点多了哟!\n", "请在左侧输入目录！！！\n"];
+        var tree = [];
+        var cnt = 0;//无效点击次数
 
         function transferText(type) {
             //输入交互
             const inputText = document.getElementById("inputArea").value;//获取输入数据
-            if(inputText.length==0){
-                if(cnt==0) document.getElementById("outputArea").value="";
+            if (inputText.length == 0) {
+                if (cnt == 0) document.getElementById("outputArea").value = "";
                 cnt++;
-                if(cnt<5) document.getElementById("outputArea").value+="请在左侧输入目录！！！\n";
-                else document.getElementById("outputArea").value += s[Math.ceil(Math.random()*5)-1];
+                if (cnt < 5) document.getElementById("outputArea").value += "请在左侧输入目录！！！\n";
+                else document.getElementById("outputArea").value += s[Math.ceil(Math.random() * 5) - 1];
                 return;//无数据，则无操作
             }
-            cnt=0;
-            document.getElementById("outputArea").value="";//清空输出框
+            cnt = 0;
+            document.getElementById("outputArea").value = "";//清空输出框
 
             // 第一部分，解析成树状结构
-            tree=[];
-            var lines=inputText.split("\n");//按行拆分
-            var fa_stk=[];//父结点栈
-            for(var i=0;i<=maxlevel;i++) fa_stk[i]=-1;
-            var top=-1;
-            fa_stk[++top]=0;
-            var maxlevel=0;
-            for(var i=0,j=0;j<lines.length;j++){
+            tree = [];
+            var lines = inputText.split("\n");//按行拆分
+            var fa_stk = [];//父结点栈
+            for (var i = 0; i <= maxlevel; i++) fa_stk[i] = -1;
+            var top = -1;
+            fa_stk[++top] = 0;
+            var maxlevel = 0;
+            for (var i = 0, j = 0; j < lines.length; j++) {
                 //跳过空行
-                if(lines[j].length==0) continue;
+                if (lines[j].length == 0) continue;
                 //判断当前层级
-                var level=0;
-                while(lines[j][level]=='-')level++;//统计行首短线数量，知道该行层级
-                if(level>maxlevel) maxlevel=level;//记录最大深度
-                lines[j]=lines[j].substring(level);//去除行首短线
+                var level = 0;
+                while (lines[j][level] == '-') level++;//统计行首短线数量，知道该行层级
+                if (level > maxlevel) maxlevel = level;//记录最大深度
+
+                //检验输入是否合法
+                if (i == 0 && lines[j].length > 0 && lines[j][0] == '-') {
+                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：第一行为主题，行前不加短线。\n";
+                    return;
+                } else if (i > 0 && level == 0) {
+                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：请在行前加短线。\n";
+                    return;
+                } else if (level > 0 && top + 1 < level) {
+                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：层次不合理。\n";
+                    return;
+                }
+
                 //寻找父结点
-                var fa=-1;
-                if(level>0) fa=fa_stk[level-1], fa_stk[level]=i;
+                lines[j] = lines[j].substring(level);//去除行首短线
+                var fa = -1;
+                if (level > 0) {
+                    while (top >= level) fa_stk[top--] = -1;
+                    fa = fa_stk[level - 1], fa_stk[++top] = i;
+                }
                 //记录结点信息，并处理父子关系
-                tree[i]={id:i,value:lines[j],father:fa,children:[],level:level};//树状节点
-                if(fa>=0) tree[fa].children.push(i);
+                tree[i] = { id: i, value: lines[j], father: fa, children: [], level: level };//树状节点
+                if (fa >= 0) tree[fa].children.push(i);
                 i++;//有效行加 1
             }
-                
+
             // 第二部分，输出为横向树状结构
             // 计算每个结点的缩进　＝　父结点的缩进 + 父结点数据宽度 + 制表符宽度
-            tree[0].indent=0;//缩进
-            for(var i=1;i<tree.length;i++){
-                tree[i].indent=tree[tree[i].father].indent+tree[tree[i].father].value.length;
+            tree[0].indent = 0;//缩进
+            for (var i = 1; i < tree.length; i++) {
+                tree[i].indent = tree[tree[i].father].indent + tree[tree[i].father].value.length;
             }
             //计算每个结点的子树的上下高度 = 孩子结点的上下高度和（自下而上统计即可）
-            for(var i=tree.length-1;i>=0;i--){
-                if(tree[i].children.length==0){//叶子结点的上下高度为 1
-                    tree[i].height=1;
-                }else{//非叶子结点的高度，为子结点上下高度之和
-                    var sum=0;
-                    for(var j=0;j<tree[i].children.length;j++) sum+=tree[tree[i].children[j]].height;
-                    if(sum==2 && tree[i].children.length==2){
-                        tree[i].height=3;//只有两个孩子的结点，高度至少设置为3，绘图比较美观
-                        tree[tree[i].children[0]].height=2;
-                    }else tree[i].height=sum;
+            for (var i = tree.length - 1; i >= 0; i--) {
+                if (tree[i].children.length == 0) {//叶子结点的上下高度为 1
+                    tree[i].height = 1;
+                } else {//非叶子结点的高度，为子结点上下高度之和
+                    var sum = 0;
+                    for (var j = 0; j < tree[i].children.length; j++) sum += tree[tree[i].children[j]].height;
+                    if (sum == 2 && tree[i].children.length == 2) {
+                        tree[i].height = 3;//只有两个孩子的结点，高度至少设置为3，绘图比较美观
+                        tree[tree[i].children[0]].height = 2;
+                    } else tree[i].height = sum;
                 }
             }
             //计算每个节点输出的绝对行号
             //先从根结点向叶子结点方向梳理，定位每个结点的绝对行号： = 上下偏移量之间的位置 = (up+down)/2;
-            tree[0].up=0, tree[0].down=tree[0].height-1;
-            setPos(0,0,tree[0].height-1);//递归实现 setPos(id,up,down);
-            
-            if(type==1){//父节点的位置等于所有子结点位置的中间
-                for(var i=tree.length-1;i>=0;i--){
-                    if(tree[i].children.length==0) continue;//叶子结点
-                    tree[i].targetRow=Math.floor((tree[tree[i].children[0]].targetRow+tree[tree[i].children[tree[i].children.length-1]].targetRow)/2);
-                } 
-            }else{//父结点位于整棵子树中间，更强调整体性
+            tree[0].up = 0, tree[0].down = tree[0].height - 1;
+            setPos(0, 0, tree[0].height - 1);//递归实现 setPos(id,up,down);
+
+            if (type == 1) {//父节点的位置等于所有子结点位置的中间
+                for (var i = tree.length - 1; i >= 0; i--) {
+                    if (tree[i].children.length == 0) continue;//叶子结点
+                    tree[i].targetRow = Math.floor((tree[tree[i].children[0]].targetRow + tree[tree[i].children[tree[i].children.length - 1]].targetRow) / 2);
+                }
+            } else {//父结点位于整棵子树中间，更强调整体性
                 //从前往后检查，如果至少2个孩子，其中第一个孩子的位置与父结点相同，则递归把父结点位置向下调整一个
-                for(var i=0;i<tree.length;i++){
-                    var cur=i;
-                    while(tree[cur].children.length>=1 && tree[tree[cur].children[0]].targetRow==tree[cur].targetRow){
-                        if(tree[cur].children.length>1) tree[cur].targetRow++;
-                        cur=tree[cur].father;
-                        if(cur<0 || cur>=tree.length) break;
-                        if(tree[cur].children.length==1) tree[cur].targetRow=tree[tree[cur].children[0]].targetRow;
+                for (var i = 0; i < tree.length; i++) {
+                    var cur = i;
+                    while (tree[cur].children.length >= 1 && tree[tree[cur].children[0]].targetRow == tree[cur].targetRow) {
+                        if (tree[cur].children.length > 1) tree[cur].targetRow++;
+                        cur = tree[cur].father;
+                        if (cur < 0 || cur >= tree.length) break;
+                        if (tree[cur].children.length == 1) tree[cur].targetRow = tree[tree[cur].children[0]].targetRow;
                     }
                 }
             }
 
             //把输出结果看做一个二维表格，逐层填充
-            var top=[],down=[];//top记录每一列的最上面一个节点偏移量，down记录每一列最下面一个节点的偏移量
-            for(var curlevel=0;curlevel<=maxlevel;curlevel++){
-                top[curlevel]=1000000,down[curlevel]=0;
-                for(var j=0;j<tree.length;j++){
-                    if(tree[j].level==curlevel){
-                        if(tree[j].targetRow < top[curlevel]) top[curlevel]=tree[j].targetRow;
-                        if(tree[j].targetRow > down[curlevel]) down[curlevel]=tree[j].targetRow;
+            var top = [], down = [];//top记录每一列的最上面一个节点偏移量，down记录每一列最下面一个节点的偏移量
+            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {
+                top[curlevel] = 1000000, down[curlevel] = 0;
+                for (var j = 0; j < tree.length; j++) {
+                    if (tree[j].level == curlevel) {
+                        if (tree[j].targetRow < top[curlevel]) top[curlevel] = tree[j].targetRow;
+                        if (tree[j].targetRow > down[curlevel]) down[curlevel] = tree[j].targetRow;
                     }
                 }
             }
 
-            var res=[];
-            for(var i=0;i<tree[0].height;i++) res[i]="";
-            for(var curlevel=0;curlevel<=maxlevel;curlevel++){//逐层处理
-                for(var i=0;i<tree.length;i++){
-                    if(tree[i].level != curlevel) continue;
+            var res = [];
+            for (var i = 0; i < tree[0].height; i++) res[i] = "";
+            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {//逐层处理
+                for (var i = 0; i < tree.length; i++) {
+                    if (tree[i].level != curlevel) continue;
                     //根结点特殊处理
-                    if(curlevel==0){
+                    if (curlevel == 0) {
                         //填充所在level的所辖范围
                         //(1)子树上半部分
-                        for(var j=tree[i].up;j<tree[i].targetRow;j++) for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
+                        for (var j = tree[i].up; j < tree[i].targetRow; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                         //(2)根结点所在行
-                        res[tree[i].targetRow]+=tree[i].value;
+                        res[tree[i].targetRow] += tree[i].value;
                         //(3)子树下半部分
-                        for(var j=tree[i].targetRow+1;j<=tree[i].down;j++) for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
-                    }else{
+                        for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
+                    } else {
                         //填充所在level的所辖范围
-                        var fa=tree[i].father;
+                        var fa = tree[i].father;
                         //(1)子树上半部分
-                        
-                        for(var j=tree[i].up;j<tree[i].targetRow;j++){
-                            if(tree[fa].targetRow==j) res[j]+="┤"; //当前位置无节点，左侧有父结点
-                            else if(i!=tree[fa].children[0]) res[j]+="│"; //当前位置无节点，左侧无节点，但还不是首结点
-                            else res[j]+="　";
-                            for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
+
+                        for (var j = tree[i].up; j < tree[i].targetRow; j++) {
+                            if (tree[fa].targetRow == j) res[j] += "┤"; //当前位置无节点，左侧有父结点
+                            else if (i != tree[fa].children[0]) res[j] += "│"; //当前位置无节点，左侧无节点，但还不是首结点
+                            else res[j] += "　";
+                            for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                         }
                         //(2)根结点所在行
-                        if(tree[fa].children.length==1) res[tree[i].targetRow]+="－";//只有一个孩子
-                        else if(tree[fa].children.length>1 && tree[fa].children[0]==i) res[tree[i].targetRow]+="┌";//第一个孩子
-                        else if(tree[fa].children.length>1 && tree[fa].children[tree[fa].children.length-1]==i) res[tree[i].targetRow]+="└";//最后一个孩子
-                        else if(tree[i].targetRow==tree[fa].targetRow) res[tree[i].targetRow]+="┼";//否则，若在中间，且与父结点同一行
-                        else res[tree[i].targetRow]+="├";//与父结点不同行
-                        res[tree[i].targetRow]+=tree[i].value;
+                        if (tree[fa].children.length == 1) res[tree[i].targetRow] += "－";//只有一个孩子
+                        else if (tree[fa].children.length > 1 && tree[fa].children[0] == i) res[tree[i].targetRow] += "┌";//第一个孩子
+                        else if (tree[fa].children.length > 1 && tree[fa].children[tree[fa].children.length - 1] == i) res[tree[i].targetRow] += "└";//最后一个孩子
+                        else if (tree[i].targetRow == tree[fa].targetRow) res[tree[i].targetRow] += "┼";//否则，若在中间，且与父结点同一行
+                        else res[tree[i].targetRow] += "├";//与父结点不同行
+                        res[tree[i].targetRow] += tree[i].value;
                         //(3)子树下半部分
-                        for(var j=tree[i].targetRow+1;j<=tree[i].down;j++){
-                            if(tree[fa].targetRow==j) res[j]+="┤"; //当前位置无节点，左侧为父结点
-                            else if(i!=tree[fa].children[tree[fa].children.length-1]) res[j]+="│"; //当前位置无节点，左侧无节点，也非最后一个孩子
-                            else res[j]+="　";
-                            for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
+                        for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) {
+                            if (tree[fa].targetRow == j) res[j] += "┤"; //当前位置无节点，左侧为父结点
+                            else if (i != tree[fa].children[tree[fa].children.length - 1]) res[j] += "│"; //当前位置无节点，左侧无节点，也非最后一个孩子
+                            else res[j] += "　";
+                            for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                         }
                     }
                 }
             }
 
             //填充到输出框
-            for(var i=0;i<res.length;i++) document.getElementById("outputArea").value+=res[i]+"\n";
-            
+            for (var i = 0; i < res.length; i++) document.getElementById("outputArea").value += res[i] + "\n";
+
             // 添加更流畅的动画 
-            outputArea.animate([ 
+            outputArea.animate([
                 { transform: 'translateY(-5px)', opacity: 0.9 },
                 { transform: 'translateY(0)', opacity: 1 }
             ], {
@@ -254,19 +337,98 @@
             });
         }
 
-        function setPos(id,up,down){
+        function setPos(id, up, down) {
             //处理当前结点
-            if(id<0 || id>=tree.length) return;
-            tree[id].targetRow=Math.floor((up+down)/2);
-            tree[id].up=up, tree[id].down=down;
+            if (id < 0 || id >= tree.length) return;
+            tree[id].targetRow = Math.floor((up + down) / 2);
+            tree[id].up = up, tree[id].down = down;
             //递归处理子结点
-            var pre=0;
-            for(var i=0;i<tree[id].children.length;i++){
-                var ch=tree[id].children[i];
-                setPos(ch,up+pre,up+pre+tree[ch].height-1);
-                pre+=tree[ch].height;
+            var pre = 0;
+            for (var i = 0; i < tree[id].children.length; i++) {
+                var ch = tree[id].children[i];
+                setPos(ch, up + pre, up + pre + tree[ch].height - 1);
+                pre += tree[ch].height;
             }
         }
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('.textarea');
+            const numbers = document.querySelector('.numbers');
+            function initLineNumbers() {
+                const lines = calcLines();
+                const lineDoms = Array.from({
+                    length: lines.length,
+                }, (_, i) => `<div>${lines[i] || '&nbsp;'}</div>`);
+                numbers.innerHTML = lineDoms.join('');
+            }
+            const textareaStyles = window.getComputedStyle(textarea);
+            [
+                'fontFamily', 'fontSize', 'fontWeight',
+                'letterSpacing', 'lineHeight', 'padding',
+            ].forEach((property) => {
+                numbers.style[property] = textareaStyles[property];
+            });
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const font = `${textareaStyles.fontSize} ${textareaStyles.fontFamily}`;
+            context.font = font;
+            function calcStringLines(sentence, width) {
+                if (!width) return 0;
+                const words = sentence.split('');
+                let lineCount = 0;
+                let currentLine = '';
+                for (let i = 0; i < words.length; i++) {
+                    const wordWidth = context.measureText(words[i]).width;
+                    const lineWidth = context.measureText(currentLine).width;
+                    if (lineWidth + wordWidth > width) {
+                        lineCount++;
+                        currentLine = words[i];
+                    } else {
+                        currentLine += words[i];
+                    }
+                }
+                if (currentLine.trim() !== '') lineCount++;
+                return lineCount;
+            }
+            function calcLines() {
+                const lines = textarea.value.split('\n');
+                const textareaWidth = textarea.getBoundingClientRect().width;
+                const textareaScrollWidth = textareaWidth - textarea.clientWidth;
+                const parseNumber = (v) => v.endsWith('px') ? parseInt(v.slice(0, -2), 10) : 0;
+                const textareaPaddingLeft = parseNumber(textareaStyles.paddingLeft);
+                const textareaPaddingRight = parseNumber(textareaStyles.paddingRight);
+                const textareaContentWidth = textareaWidth - textareaPaddingLeft - textareaPaddingRight - textareaScrollWidth;
+                const numLines = lines.map(lineString => calcStringLines(lineString, textareaContentWidth));
+                let lineNumbers = [];
+                let i = 1;
+                while (numLines.length > 0) {
+                    const numLinesOfSentence = numLines.shift();
+                    lineNumbers.push(i);
+                    if (numLinesOfSentence > 1) {
+                        Array(numLinesOfSentence - 1)
+                            .fill('')
+                            .forEach((_) => lineNumbers.push(''));
+                    }
+                    i++;
+                }
+                return lineNumbers;
+            }
+            const ro = new ResizeObserver(() => {
+                const rect = textarea.getBoundingClientRect();
+                numbers.style.height = `${rect.height}px`;
+                initLineNumbers();
+            });
+            ro.observe(textarea);
+            textarea.addEventListener('scroll', () => {
+                numbers.scrollTop = textarea.scrollTop;
+            });
+            textarea.addEventListener('input', () => {
+                initLineNumbers();
+            });
+        });
+    </script>
 </body>
+
 </html>
