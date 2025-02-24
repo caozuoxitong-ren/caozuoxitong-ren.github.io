@@ -159,12 +159,10 @@
                 }else{//非叶子结点的高度，为子结点上下高度之和
                     var sum=0;
                     for(var j=0;j<tree[i].children.length;j++) sum+=tree[tree[i].children[j]].height;
-
                     if(sum==2 && tree[i].children.length==2){
                         tree[i].height=3;//只有两个孩子的结点，高度至少设置为3，绘图比较美观
                         tree[tree[i].children[0]].height=2;
-                    }
-                    else tree[i].height=sum;
+                    }else tree[i].height=sum;
                 }
             }
             //计算每个节点输出的绝对行号
@@ -189,8 +187,6 @@
                     }
                 }
             }
-           
-            
 
             //把输出结果看做一个二维表格，逐层填充
             var top=[],down=[];//top记录每一列的最上面一个节点偏移量，down记录每一列最下面一个节点的偏移量
@@ -224,27 +220,23 @@
                         //(1)子树上半部分
                         
                         for(var j=tree[i].up;j<tree[i].targetRow;j++){
-                            if(top[curlevel]<=j && j<=down[curlevel]){
-                                if(tree[fa].children.length==1) res[j]+="　";
-                                else if(tree[fa].targetRow==j)  res[j]+="┤";
-                                else res[j]+="│";
-                            }else res[j]+="　";
+                            if(tree[fa].targetRow==j) res[j]+="┤"; //当前位置无节点，左侧有父结点
+                            else if(i!=tree[fa].children[0]) res[j]+="│"; //当前位置无节点，左侧无节点，但还不是首结点
+                            else res[j]+="　";
                             for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
                         }
                         //(2)根结点所在行
                         if(tree[fa].children.length==1) res[tree[i].targetRow]+="－";//只有一个孩子
                         else if(tree[fa].children.length>1 && tree[fa].children[0]==i) res[tree[i].targetRow]+="┌";//第一个孩子
                         else if(tree[fa].children.length>1 && tree[fa].children[tree[fa].children.length-1]==i) res[tree[i].targetRow]+="└";//最后一个孩子
-                        else if(tree[i].targetRow==tree[fa].targetRow) res[tree[i].targetRow]+="┼";//大于等于2个孩子的结点，必然在中间，若与父结点同行
-                        else res[tree[i].targetRow]+="├";
+                        else if(tree[i].targetRow==tree[fa].targetRow) res[tree[i].targetRow]+="┼";//否则，若在中间，且与父结点同一行
+                        else res[tree[i].targetRow]+="├";//与父结点不同行
                         res[tree[i].targetRow]+=tree[i].value;
                         //(3)子树下半部分
                         for(var j=tree[i].targetRow+1;j<=tree[i].down;j++){
-                            if(top[curlevel]<=j && j<=down[curlevel]){
-                                if(tree[fa].children.length==1) res[j]+="　";
-                                else if(tree[fa].targetRow==j)  res[j]+="┤";
-                                else res[j]+="│";
-                            }else res[j]+="　";
+                            if(tree[fa].targetRow==j) res[j]+="┤"; //当前位置无节点，左侧为父结点
+                            else if(i!=tree[fa].children[tree[fa].children.length-1]) res[j]+="│"; //当前位置无节点，左侧无节点，也非最后一个孩子
+                            else res[j]+="　";
                             for(var k=0;k<tree[i].value.length;k++) res[j]+="　";
                         }
                     }
@@ -252,9 +244,7 @@
             }
 
             //填充到输出框
-            for(var i=0;i<res.length;i++){
-                document.getElementById("outputArea").value+=res[i]+"\n";
-            }
+            for(var i=0;i<res.length;i++) document.getElementById("outputArea").value+=res[i]+"\n";
             
             // 添加更流畅的动画 
             outputArea.animate([ 
