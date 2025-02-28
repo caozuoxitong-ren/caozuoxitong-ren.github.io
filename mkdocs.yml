@@ -46,8 +46,7 @@ nav:
     - 中国: zhongguo.md # 老子、孔子、...、钱学森、...
     - 西方: xifang.md # 笛卡尔、牛顿、...
     - 印度: yindu.md # 佛祖、...
-  - 工具:
-    - 义脉树枝图: tools/yimaishuzhitu.html
+  - 道品空间: 'https://daopin.space'
 
 # Theme 主题设置
 theme:
