@@ -47,6 +47,8 @@ nav:
     - 西方: xifang.md # 笛卡尔、牛顿、...
     - 印度: yindu.md # 佛祖、...
   - 道品空间: 'https://daopin.space'
+  - OI算法: 'https://oi-wiki.org'
+  - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
 
 # Theme 主题设置
 theme:
