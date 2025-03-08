@@ -29,5 +29,5 @@
 此刻展卷，您将开启的不仅是一次阅读旅程，更是一场生命系统的版本升级。让我们共同编写这份永远处于beta版的成长代码，在持续迭代中见证生命的涌现与超越。
 
 <div style="text-align: center;">
-<img src="../../image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>
