@@ -11,7 +11,7 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 身体层:
+  - 身体系统:
     - 1 理论:
       - 1.1 筋膜学理论: body-system/theory/fasciology/fasciology.md
       - 1.2 人体经络系统: body-system/theory/meridian-system/meridian-system.md
@@ -20,43 +20,34 @@ nav:
     - 2 实践:
       - 2.1 少林洗髓易筋经: body-system/practice/yijinjing/yijinjing.md
       - 2.2 少林内劲一指禅: body-system/practice/neijinyizhichan/neijinyizhichan.md
-    #  - 2.2 五禽戏: wuqinxi.md
-    #  - 2.3 六字诀: liuzijue.md
-    #  - 2.4 八段锦: baduanjin.md
-  - 心理层:
+  - 神经系统:
+      - 1 宏观层面:
+        - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
+      - 2 介观层面:
+        - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
+      # - 2.1.2 奖赏回路: jiangshanghuilu.md
+      # - 2.1.3 基底节: jidijie.md
+      # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
+      # - 2.1.5 默认网络: morenwangluo.md
+      # - 2.1.6 注意: zhuyi.md
+      - 3 微观层面: weiguan-brain.md
+  - 个体发展谱系:
     - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
     # - 生物基质层: shengwujizhiceng.md
     # - 心理动力层: xinlidongliceng.md
+    #   - 止观法门: zhiguan.md
+    #   - 道品法门: nianzhu.md
     # - 行为惯习层: xingweiguanxiceng.md
     # - 价值意义层: jiazhiyiyiceng.md
+      #   - 大道:
+      # - 人与自己: to-self.md  # 空，无作
+      # - 人与自然: to-nature.md # 道，无为
+      # - 人与社会: to-society.md # 中，无偏
     # - 社会角色层: shehuijueseceng.md
-  - 技术增强层: jishu.md
-  - 文化符号层: wenhuafuhao.md
-  - 超个体层: chaogeticeng.md
-    # - 2.1 理论:
-    #   - 2.1.1 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
-    #   - 2.1.2 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
-    #   # - 2.1.2 奖赏回路: jiangshanghuilu.md
-    #   # - 2.1.3 基底节: jidijie.md
-    #   # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
-    #   # - 2.1.5 默认网络: morenwangluo.md
-    #   # - 2.1.6 注意: zhuyi.md
-    # - 2.2 实践:
-    #   - 2.2.1 止观法门: zhiguan.md
-    #   - 2.2.2 四念住法门: nianzhu.md
-  # - 道德层:
-  #   - 1 道: dao.md
-  #   - 2 德: de.md
-  # - 人生层: 
-  #   - 无为证道篇: wuwei.md
-  #   - 有为施德篇: youwei.md
   # - 同道中人:
-  #   - 中国: zhongguo.md # 老子、孔子、...、钱学森、...
+  #   - 中国: zhongguo.md # 老子、孔子、...
   #   - 西方: xifang.md # 笛卡尔、牛顿、...
   #   - 印度: yindu.md # 佛祖、...
-  # - 道品空间: 'https://daopin.space'
-  # - OI算法: 'https://oi-wiki.org'
-  # - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
 
 # Theme 主题设置
 theme:
