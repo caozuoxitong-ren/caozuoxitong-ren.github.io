@@ -11,7 +11,7 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 无为筑基 - 身体(道):
+  - 无为筑基 - 身体:
     - 1 中医:
       - 1.1 中医理论学:     
         - 1.1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
@@ -25,7 +25,7 @@ nav:
       - 2.1 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
       - 2.2 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
     - 3 内丹术: neidanshu.md
-  - 无为筑基 - 心理(佛):
+  - 无为筑基 - 心理:
       - 1 心理学: # 宏观层面、介观层面、微观层面
         - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
         - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
@@ -38,8 +38,8 @@ nav:
         - 止观法门: nervous-system\practice\zhiguan--introduction.md
       - 3 涅槃术: 
         - 道品法门: nervous-system\practice\daopin-introduction.md
-  - 有为造业 - 作为(儒):
-    - 人自身: youwei-renzishen.md
+  - 有为造业 - 作为:
+    - 人与己（自身）: youwei-renzishen.md
     - 人与人（社会）: youwei-renyuren.md
     - 人与物（自然）:  youwei-renyuwu.md
   - 物理基质层: wulijizhiceng.md
