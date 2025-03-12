@@ -11,18 +11,22 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 身体筑基:
-    - 1 理论:
-      - 1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
-      - 1.2 人体经络系统: human-body/theory/meridian-system/meridian-system.md
-      - 1.3 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
-      - 1.4 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
-    - 2 基础功法:
+  - 无为筑基 - 身体(道):
+    - 1 中医:
+      - 1.1 中医理论学:     
+        - 1.1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
+        - 1.1.2 人体经络系统: human-body/theory/meridian-system/meridian-system.md   
+        - 1.1.3 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
+        - 1.1.4 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
+      - 2 中医诊断学: zhongyi-zhenduan.md
+      - 3 中医药物学: zhongyi-yaowu.md
+      - 4 中医方剂学: zhongyi-fangji.md
+    - 2 气功:
       - 2.1 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
       - 2.2 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
-    - 3 仙道: human-body\dao\xiandao.md
-  - 心理筑基:
-      - 1 理论: # 宏观层面、介观层面、微观层面
+    - 3 内丹术: neidanshu.md
+  - 无为筑基 - 心理(佛):
+      - 1 心理学: # 宏观层面、介观层面、微观层面
         - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
         - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
         # - 2.1.2 奖赏回路: jiangshanghuilu.md
@@ -30,12 +34,21 @@ nav:
         # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
         # - 2.1.5 默认网络: morenwangluo.md
         # - 2.1.6 注意: zhuyi.md
-      - 2 基础功法:
+      - 2 基础禅法:
         - 止观法门: nervous-system\practice\zhiguan--introduction.md
+      - 3 涅槃术: 
         - 道品法门: nervous-system\practice\daopin-introduction.md
-      - 3 佛道: nervous-system\dao\fodao.md
-  - 个体发展谱系:
-    - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
+  - 有为造业 - 作为(儒):
+    - 人自身: youwei-renzishen.md
+    - 人与人（社会）: youwei-renyuren.md
+    - 人与物（自然）:  youwei-renyuwu.md
+  - 物理基质层: wulijizhiceng.md
+  - 生命网络层: shengmingwangluoceng.md
+  - 认知符号层: renzhifuhaoceng.md
+  - 技术介导层: jishujiedaoceng.md
+  - 制度拓扑层: jishutuopuceng.md
+  # - 个体发展谱系:
+  #   - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
     # - 生物基质层: shengwujizhiceng.md
     # - 心理动力层: xinlidongliceng.md
 
@@ -46,9 +59,9 @@ nav:
       # - 人与自然: to-nature.md # 道，无为
       # - 人与社会: to-society.md # 中，无偏
     # - 社会角色层: shehuijueseceng.md
-  - 个人驱动系统: personal-manage\personal-manage.md
-  - 世界观: 
-    - 世界观: world-view\world-view.md
+  # - 个人驱动系统: personal-manage\personal-manage.md
+  # - 世界观: 
+  #   - 世界观: world-view\world-view.md
     # - 自然系统: ziran.md  # 历史类：宇宙、生态系统、生命和人类
     #                  #  学科类：物理、人工智能、基因工程、能源、……各个主干领域
     # - 社会系统: shehui.md # 人类演化史： 人类走出非洲 + 有一本石器时代的人类考古的书讲自然对人的影响 + 地缘政治和资源《钢铁细菌大炮》 + 历次科技革命阶段
@@ -57,10 +70,10 @@ nav:
     #                   # 组织结构：+ 政治、经济、文化、社会、军事、……
     # - 个人系统: geren.md # 自传体记忆 + 结合《自私的基因》的自然演化机制
     #                 # 人物传记
-  - 同道中人:
-    - 中国: zhongguo.md # 老子、孔子、...
-    - 西方: xifang.md # 笛卡尔、牛顿、...
-    - 印度: yindu.md # 佛祖、...
+  - 探索者名录: ancient-sages.md
+    # - 中国: zhongguo.md # 老子、孔子、...
+    # - 西方: xifang.md # 笛卡尔、牛顿、...
+    # - 印度: yindu.md # 佛祖、...
 # Theme 主题设置
 theme:
   name: material
