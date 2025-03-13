@@ -11,7 +11,7 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 无为筑基 - 身体:
+  - 筑基 - 身体:
     - 1 中医:
       - 1.1 中医理论学:     
         - 1.1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
@@ -25,7 +25,7 @@ nav:
       - 2.1 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
       - 2.2 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
     - 3 修真之道: neidanshu.md
-  - 无为筑基 - 心理:
+  - 筑基 - 心理:
       - 1 心理学: # 宏观层面、介观层面、微观层面
         - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
         - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
@@ -38,15 +38,16 @@ nav:
         - 止观法门: nervous-system\practice\zhiguan--introduction.md
       - 3 涅槃之道: 
         - 道品法门: nervous-system\practice\daopin-introduction.md
-  - 有为造业 - 作为:
+  - 价值观:
     - 人与己（自身）: youwei-renzishen.md
     - 人与人（社会）: youwei-renyuren.md
     - 人与物（自然）:  youwei-renyuwu.md
-  - 物理基质层: wulijizhiceng.md
-  - 生命网络层: shengmingwangluoceng.md
-  - 认知符号层: renzhifuhaoceng.md
-  - 技术介导层: jishujiedaoceng.md
-  - 制度拓扑层: jishutuopuceng.md
+  - 世界观:
+    - 物理基质层: wulijizhiceng.md
+    - 生命网络层: shengmingwangluoceng.md
+    - 认知符号层: renzhifuhaoceng.md
+    - 技术介导层: jishujiedaoceng.md
+    - 制度拓扑层: jishutuopuceng.md
   # - 个体发展谱系:
   #   - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
     # - 生物基质层: shengwujizhiceng.md
