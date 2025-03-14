@@ -11,21 +11,21 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 nav:
   - 首页: index.md
   # - 总述: zongshu.md
-  - 筑基 - 身体:
-    - 1 中医:
+  - 筑基 - 身:
+    - 1 中医学: 
       - 1.1 中医理论学:     
         - 1.1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
         - 1.1.2 人体经络系统: human-body/theory/meridian-system/meridian-system.md   
         - 1.1.3 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
         - 1.1.4 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
-      - 2 中医诊断学: zhongyi-zhenduan.md
-      - 3 中医药物学: zhongyi-yaowu.md
-      - 4 中医方剂学: zhongyi-fangji.md
-    - 2 气功:
+      # - 2 中医诊断学: zhongyi-zhenduan.md
+      # - 3 中医药物学: zhongyi-yaowu.md
+      # - 4 中医方剂学: zhongyi-fangji.md
+    - 2 导引气功:
       - 2.1 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
       - 2.2 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
     - 3 修真之道: neidanshu.md
-  - 筑基 - 心理:
+  - 筑基 - 心:
       - 1 心理学: # 宏观层面、介观层面、微观层面
         - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
         - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
@@ -34,20 +34,20 @@ nav:
         # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
         # - 2.1.5 默认网络: morenwangluo.md
         # - 2.1.6 注意: zhuyi.md
-      - 2 基础禅法:
-        - 止观法门: nervous-system\practice\zhiguan--introduction.md
+      - 2 基础止观: 
+        - 基础止观: nervous-system\practice\zhiguan--introduction.md
       - 3 涅槃之道: 
         - 道品法门: nervous-system\practice\daopin-introduction.md
-  - 价值观:
-    - 人与己（自身）: youwei-renzishen.md
-    - 人与人（社会）: youwei-renyuren.md
-    - 人与物（自然）:  youwei-renyuwu.md
-  - 世界观:
-    - 物理基质层: wulijizhiceng.md
-    - 生命网络层: shengmingwangluoceng.md
-    - 认知符号层: renzhifuhaoceng.md
-    - 技术介导层: jishujiedaoceng.md
-    - 制度拓扑层: jishutuopuceng.md
+  # - 价值观:
+  #   - 人与己（自身）: youwei-renzishen.md
+  #   - 人与人（社会）: youwei-renyuren.md
+  #   - 人与物（自然）:  youwei-renyuwu.md
+  # - 世界观:
+  #   - 物理基质层: wulijizhiceng.md
+  #   - 生命网络层: shengmingwangluoceng.md
+  #   - 认知符号层: renzhifuhaoceng.md
+  #   - 技术介导层: jishujiedaoceng.md
+  #   - 制度拓扑层: jishutuopuceng.md
   # - 个体发展谱系:
   #   - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
     # - 生物基质层: shengwujizhiceng.md
