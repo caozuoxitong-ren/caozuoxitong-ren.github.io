@@ -10,23 +10,19 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 # Contents 导航
 nav:
   - 首页: index.md
-  # - 总述: zongshu.md
-  - 筑基 - 身:
-    - 1 中医学: 
-      - 1.1 中医理论学:     
-        - 1.1.1 筋膜学理论: human-body/theory/fasciology/fasciology.md
-        - 1.1.2 人体经络系统: human-body/theory/meridian-system/meridian-system.md   
-        - 1.1.3 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
-        - 1.1.4 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
-      # - 2 中医诊断学: zhongyi-zhenduan.md
-      # - 3 中医药物学: zhongyi-yaowu.md
-      # - 4 中医方剂学: zhongyi-fangji.md
-    - 2 导引气功:
-      - 2.1 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
-      - 2.2 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
-    - 3 修真之道: neidanshu.md
-  - 筑基 - 心:
-      - 1 心理学: # 宏观层面、介观层面、微观层面
+  - 筑基篇:
+    - 身:
+      - 经络系统:  
+        - 筋膜学理论: human-body/theory/fasciology/fasciology.md
+        - 人体经络系统: human-body/theory/meridian-system/meridian-system.md   
+        - 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
+        - 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
+      - 环境影响: huanjingyingxiang.md
+      - 养生之道:
+        - 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
+        - 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
+    - 心:
+      - 神经系统: # 宏观层面、介观层面、微观层面
         - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
         - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
         # - 2.1.2 奖赏回路: jiangshanghuilu.md
@@ -34,43 +30,13 @@ nav:
         # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
         # - 2.1.5 默认网络: morenwangluo.md
         # - 2.1.6 注意: zhuyi.md
-      - 2 基础止观: 
-        - 基础止观: nervous-system\practice\zhiguan--introduction.md
-      - 3 涅槃之道: 
-        - 道品法门: nervous-system\practice\daopin-introduction.md
-  # - 价值观:
-  #   - 人与己（自身）: youwei-renzishen.md
-  #   - 人与人（社会）: youwei-renyuren.md
-  #   - 人与物（自然）:  youwei-renyuwu.md
-  # - 世界观:
-  #   - 物理基质层: wulijizhiceng.md
-  #   - 生命网络层: shengmingwangluoceng.md
-  #   - 认知符号层: renzhifuhaoceng.md
-  #   - 技术介导层: jishujiedaoceng.md
-  #   - 制度拓扑层: jishutuopuceng.md
-  # - 个体发展谱系:
-  #   - 概述: developmental-plasticity\getifazhanpuxi-gaishu.md
-    # - 生物基质层: shengwujizhiceng.md
-    # - 心理动力层: xinlidongliceng.md
-
-    # - 行为惯习层: xingweiguanxiceng.md
-    # - 价值意义层: jiazhiyiyiceng.md
-      #   - 大道:
-      # - 人与自己: to-self.md  # 空，无作
-      # - 人与自然: to-nature.md # 道，无为
-      # - 人与社会: to-society.md # 中，无偏
-    # - 社会角色层: shehuijueseceng.md
-  # - 个人驱动系统: personal-manage\personal-manage.md
-  # - 世界观: 
-  #   - 世界观: world-view\world-view.md
-    # - 自然系统: ziran.md  # 历史类：宇宙、生态系统、生命和人类
-    #                  #  学科类：物理、人工智能、基因工程、能源、……各个主干领域
-    # - 社会系统: shehui.md # 人类演化史： 人类走出非洲 + 有一本石器时代的人类考古的书讲自然对人的影响 + 地缘政治和资源《钢铁细菌大炮》 + 历次科技革命阶段
-    #                   # 世界历史：上古文明遍地开花 + 世界史、中国史、……
-    #                   # 多极文明：+ “天下大同（华夏人）”或“海盗逻辑（昂撒人）”或“商业逻辑（犹太人）或宗教逻辑（基督教)”或“军事逻辑（军工复合体）”
-    #                   # 组织结构：+ 政治、经济、文化、社会、军事、……
-    # - 个人系统: geren.md # 自传体记忆 + 结合《自私的基因》的自然演化机制
-    #                 # 人物传记
+      - 心身现象: xinshenxianxiang.md
+        # - 基础止观: nervous-system\practice\zhiguan--introduction.md
+      - 涅槃之道: niepanzhidao.md
+        # - 道品法门: nervous-system\practice\daopin-introduction.md
+    - 行: yijingzhixing.md
+  - 积学篇: jixuepian.md
+  - 人生篇: renshengpian.md
   - 探索者名录: ancient-sages.md
     # - 中国: zhongguo.md # 老子、孔子、...
     # - 西方: xifang.md # 笛卡尔、牛顿、...
