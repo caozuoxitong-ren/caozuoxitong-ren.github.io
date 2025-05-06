@@ -49,7 +49,7 @@
 人的操作系统，旨在探索和构建以人为本的人生框架和训练体系，构建最小工具集，既不失其系统性和究极性，又有实用性的特点。
 
 <div style="text-align: center;">
-<img src="../../../../image/rendecaozuoxitong.png" alt="人的操作系统-框架图" />
+<img src="image/rendecaozuoxitong.png" alt="人的操作系统-框架图" />
 </div>
 
 <div style="font-family: 'SimSun', STSong, serif; white-space: pre-wrap;">
