@@ -10,6 +10,15 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 # Contents 导航
 nav:
   - 首页: index.md
+  - 性命篇: xingmingpian.md
+  - 价值篇: jiazhipian.md
+  - 化育篇: 
+      - 识:
+          # - 物理领域: education/physics.md
+          # - 生命领域: education/life.md
+          - 文明领域: education/civilization.md
+  - 道路篇: daolupian.md
+  - 建树篇: jianshupian.md
   # - 筑基篇:
     # - 身:
     #   - 经络系统:  
