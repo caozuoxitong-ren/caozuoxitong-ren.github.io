@@ -41,16 +41,27 @@ nav:
         # - 2.1.6 注意: zhuyi.md
   - 未来篇: 
     - 未来人类分化类型: futrue/human-futrue.md
+  - 同道中人:
+      - 前552-[春秋]孔子: ancient-sages\-551-kongzi.md
+      - 前520-[古印度]乔达摩·悉达多: ancient-sages\-520-gautama.md
+      - 前384-[古希腊]亚里士多德: ancient-sages\-384-Aristotle.md
+      - 1596-[法国]笛卡尔: ancient-sages\1596-Descartes.md
+      - 1643-[英国]牛顿: ancient-sages\1643-newton.md
+      - 1724-[德国]康德: ancient-sages\1724-Kant.md
   # - 探索者名录: ancient-sages.md
     # - 中国: zhongguo.md # 老子、孔子、...
     # - 西方: xifang.md # 笛卡尔、牛顿、...
     # - 印度: yindu.md # 佛祖、...
+
+
 # Theme 主题设置
 theme:
   name: material
   features:
     - navigation.tabs
+    # - navigation.tabs.sticky # 固定导航条
     - navigation.expand
+    
   language: 'zh'
   font:
     text: 'Fira Sans'
