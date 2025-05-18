@@ -10,15 +10,15 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 # Contents 导航
 nav:
   - 首页: index.md
-  - 性命篇: xingmingpian.md
-  - 价值篇: jiazhipian.md
+  # - 性命篇: xingmingpian.md
+  # - 价值篇: jiazhipian.md
   - 化育篇: 
       - 识:
-          # - 物理领域: education/physics.md
-          # - 生命领域: education/life.md
-          - 文明领域: education/civilization.md
-  - 道路篇: daolupian.md
-  - 建树篇: jianshupian.md
+          # - 物理与科技: 化育篇\识\宇宙与物理.md
+          # - 生命与生态: 化育篇\识\生命与生态.md
+          - 文化与文明: 化育篇\识\文化与文明.md
+  # - 道路篇: daolupian.md
+  # - 建树篇: jianshupian.md
   # - 筑基篇:
     # - 身:
     #   - 经络系统:  
@@ -39,25 +39,20 @@ nav:
         # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
         # - 2.1.5 默认网络: morenwangluo.md
         # - 2.1.6 注意: zhuyi.md
-  - 未来篇: 
+  - 未来篇:
     - 未来人类分化类型: futrue/human-futrue.md
   - 同道中人:
-      - 前7000-[新石器早期]伏羲: ancient-sages\-7000-fuxishi.md
-      - 前6000-[新石器中期]神农: ancient-sages\-6000-shennongshi.md
-      - 前565-[古印度]乔达摩·悉达多: ancient-sages\-520-gautama.md
-      - 前552-[春秋]孔子: ancient-sages\-551-kongzi.md
-      - 前384-[古希腊]亚里士多德: ancient-sages\-384-Aristotle.md
-      - 602-[唐朝]唐玄奘: ancient-sages\602-tangxuanzang.md
-      - 1518-[明朝]李时珍: ancient-sages\1518-lishizhen.md
-      - 1596-[法国]笛卡尔: ancient-sages\1596-Descartes.md
-      - 1643-[英国]牛顿: ancient-sages\1643-newton.md
-      - 1724-[德国]康德: ancient-sages\1724-Kant.md
-      - 1893-[近现代中国]毛泽东: ancient-sages\1893-maozedong.md
-  # - 探索者名录: ancient-sages.md
-    # - 中国: zhongguo.md # 老子、孔子、...
-    # - 西方: xifang.md # 笛卡尔、牛顿、...
-    # - 印度: yindu.md # 佛祖、...
-
+      - 前8000~前5000年【新石器早期】伏羲氏: 同道中人\前8000~前5000年【新石器早期】伏羲氏.md
+      - 前6000~前3000年【新石器中期】神农氏: 同道中人\前6000~前3000年【新石器中期】神农氏.md
+      - 前565~前485年【古印度】乔达摩·悉达多: 同道中人\前565~前485年【古印度】乔达摩·悉达多.md
+      - 前551~前479年【春秋】孔子: 同道中人\前551~前479年【春秋】孔子.md
+      - 前384~前322年【古希腊】亚里士多德: 同道中人\前384~前322年【古希腊】亚里士多德.md
+      - 约58年~约147年【东汉】许慎: 同道中人\约58年~约147年【东汉】许慎.md
+      - 602~604年【唐】唐玄奘: 同道中人\602~604年【唐朝】唐玄奘.md
+      - 约1518~1593年【明】李时珍: 同道中人\约1518~1593年【明】李时珍.md
+      - 1596~1650年【法国】笛卡尔: 同道中人\1596~1650年【法国】笛卡尔.md
+      - 1724~1804年【德国】康德: 同道中人\1724~1804年【德国】康德.md
+      - 1893~1976年【近现代】毛泽东: 同道中人\1893~1976年【近现代】毛泽东.md
 
 # Theme 主题设置
 theme:
