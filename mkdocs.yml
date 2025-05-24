@@ -12,10 +12,7 @@ nav:
   - 首页: index.md
   # - 性命篇: xingmingpian.md
   # - 价值篇: jiazhipian.md
-  - 化育篇: 
-      - 识:
-          # - 自然与科学: 化育篇\识\自然与科学.md
-          - 文化与文明: 化育篇\识\文化与文明.md
+  - 文化: 化育篇\识\文化与文明.md
   # - 道路篇: daolupian.md
   # - 建树篇: jianshupian.md
   # - 筑基篇:
