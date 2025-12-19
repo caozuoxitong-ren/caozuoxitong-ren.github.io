@@ -47,7 +47,7 @@ nav:
       - 亚种2：重塑者: human-society/reshaper-charter.md
       - 亚种3：融合体: human-society/merger-charter.md
       - 亚种4：基线人类: human-society/baseline-human-charter.md
-  - 人与自然: human-nature.md
+  - 人与自然: human-nature/human-nature.md
   - 技术工具:
     - githubpages搭建教程: tools\githubpages.md
     - 义脉树枝图生成器: tools\yimaishuzhitu.html
