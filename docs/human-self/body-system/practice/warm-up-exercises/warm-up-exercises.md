@@ -122,5 +122,5 @@
 并步站立。左手成掌，四指并拢，拇指弯曲。右手成空心拳，拇指第一指节贴于食指中指第二指节。两臂环抱成圆于胸前，左掌心掩贴右拳面，左拇指贴住右拳眼，左掌背朝左朝上。身体中正，目视受礼者，举止自然大方。
 
 <div style="text-align: center;">
-<img src="../../../../image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>

@@ -57,5 +57,5 @@
 七字真经，妙谛传心。一曰恭敬，恭敬则诚。二曰清静，清静则存。三曰洁净，洁净则明。四曰切近，切近则真。五曰精进，精进则深。六曰穷尽，穷尽则纯。七曰究竟，究竟则神。毋为异惊，毋使奇争。可名非名，官止神行。明明浑浑，玄妙之门。
 
 <div style="text-align: center;">
-<img src="/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>

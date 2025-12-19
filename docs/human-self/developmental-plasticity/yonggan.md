@@ -7,3 +7,7 @@
 4、修炼：阐明培养或修炼的方法
 5、案例：列举古今中外经典的案例
 6、参考：列举参考文献
+
+<div style="text-align: center;">
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+</div>

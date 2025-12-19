@@ -123,3 +123,7 @@ nav:
 1. GitHub Pages入门文档：[多语言版](https://pages.github.com/)
 2. material for mkdocs 参考文档：[中文版](http://mkdoc-material.llango.com/) 或 [英文版](https://squidfunk.github.io/mkdocs-material/)
 3. Markdown 教程：[中文版](https://markdown.com.cn/) 或 [英文版](https://www.markdownguide.org/)
+
+<div style="text-align: center;">
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+</div>

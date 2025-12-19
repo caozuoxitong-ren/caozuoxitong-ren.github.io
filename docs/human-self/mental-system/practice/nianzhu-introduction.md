@@ -19,3 +19,7 @@
 
 ## 六、项目活动信息
 每月网课，21堂课，每天早晨一堂；每年夏季，在高山森林公园中一期。大假期间随缘而定。
+
+<div style="text-align: center;">
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+</div>

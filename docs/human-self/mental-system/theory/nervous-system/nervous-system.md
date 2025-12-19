@@ -198,5 +198,5 @@
 [3] (美)Benjamin B. Lahey著. 心理学导论[M]. 吴庆麟等译. 第9版. 上海: 上海人民出版社,2010．<br>
 
 <div style="text-align: center;">
-<img src="/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>

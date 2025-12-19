@@ -42,3 +42,7 @@
 - 压力感难摆脱，被迷茫感困扰，经常心绪动扰，心灵失去安稳者；
 - 烦恼对治调伏需求者；
 - 对心灵或生命的深层次存在，有探索感兴趣的人士。
+
+<div style="text-align: center;">
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+</div>

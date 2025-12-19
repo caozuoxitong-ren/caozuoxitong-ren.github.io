@@ -408,5 +408,5 @@
 功用：卧功主要用于养气。室外气候不适时或体质虚弱无力练站桩功者均可进行卧功锻炼。年老体衰、气血两亏者尤为适宜。有失眠现象者，亦可借助卧功诱导入睡，当练至睡意袭来时，可任之睡去。
 
 <div style="text-align: center;">
-<img src="../../../../image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>

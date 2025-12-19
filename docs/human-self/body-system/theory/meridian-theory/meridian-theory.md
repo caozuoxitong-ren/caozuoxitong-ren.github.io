@@ -221,5 +221,5 @@
 [1] 印会河,张伯讷.中医基础理论[M].上海:上海科学技术出版社,1984.[2] 邱茂良,张善忱.针灸学[M].上海:上海科学技术出版社,1985.
 
 <div style="text-align: center;">
-<img src="/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>
