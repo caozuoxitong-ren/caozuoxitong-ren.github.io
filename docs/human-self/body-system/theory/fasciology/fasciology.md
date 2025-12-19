@@ -244,5 +244,5 @@
 [1] 原林,王军. 筋膜学[M]. 北京:人民卫生出版社,2018.
 
 <div style="text-align: center;">
-<img src="/image/weixin-code.png" alt="微信公众号-人的操作系统" />
+<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
 </div>
