@@ -15,6 +15,32 @@
         })();
       </script>
     <style>
+        /* 新增字号调节按钮样式 */
+        .font-controls {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 1;
+            display: flex;
+            gap: 5px;
+        }
+    
+        .font-controls button {
+            padding: 2px 8px;
+            font-size: 14px;
+            border-radius: 15px;
+            background: #3498db;
+            transition: all 0.3s;
+            width: auto;
+        }
+    
+        .font-controls button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+    </style>
+    
+    <style>
         /* 新增标题样式 */
         h1 {
             text-align: center;
@@ -122,7 +148,7 @@
             /*左侧数字编号div的宽度*/
             border: 3px solid #2ecc71;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 14px;
             resize: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -150,46 +176,167 @@
         <div class="container">
             <div class="numbers"></div>
             <textarea id="inputArea" class="textarea" placeholder="输入格式说明：
-(1) 第一行表示主题名称，行首没有短线；
-(2) 行首短线每增加一个，目录层级增加一级，短线必须为半角；
-(3) 排版默认按全角对齐，若英文或数字对不齐，可用全角输入；
-(4) 允许有空行，自动忽略空行。
+1. 第一行表示主题名称，行首无短线。
+2. 目录每增加一级，行首短线多一条，短线须为半角。
+3. 允许有空行，自动忽略空行。
+4. 为保证对齐，输入内容自动转为全角。
+5. 若无法对齐，请调整字体为宋体。
+6. 输出框右上角按钮【A-/A+】调整输出字体的大小。
+7. 生成1/生成2，用于调整不同的排版样式。
 
 下面为输入示例：
 
-念住
--念住初阶
---第一轮：念处及其如实知
----身念处
----受念处
----法念处
----心念处
----义念处
---第二轮：念住
---第三轮：念赋义
--念住中阶
---念身七目
---禅观五步
--念住高阶"></textarea>
+生物实体
+-非细胞实体
+--病毒
+---DNA病毒
+---RNA病毒
+--亚病毒因子
+---类病毒
+---卫星病毒
+---朊病毒
+-细胞生命
+--细菌域
+---变形菌门
+---厚壁菌门
+---放线菌门
+---蓝藻门
+--古菌域
+---广古菌门
+---泉古菌门
+---奇古菌门
+--真核生物域
+---古虫界
+---变形虫类
+---后鞭毛生物
+----领鞭毛虫类
+----真菌界
+----动物界
+---SAR超类群
+----根足虫类
+----囊泡虫类
+----不等鞭毛类
+---原始质体生物
+----灰胞藻
+----红藻
+----绿色植物"></textarea>
         </div>
         <!-- 新增按钮容器 -->
         <div class="button-container">
             <button onclick="transferText(1)">生成1 →</button>
             <button onclick="transferText(2)">生成2 →</button>
         </div>
-        <textarea id="outputArea" class="textarea-out" readonly height="auto"></textarea>
+        <!-- 在输出textarea的容器外添加一个包裹div，并添加字号调节按钮 -->
+        <div style="position: relative;">
+            <!-- 字号调节按钮容器 -->
+            <div class="font-controls">
+                <button onclick="adjustFontSize(-1)">A-</button>
+                <button onclick="adjustFontSize(1)">A+</button>
+            </div>
+            <textarea id="outputArea" class="textarea-out" readonly height="auto" placeholder="　　　　　　　　　　　　　┌ＤＮＡ病毒
+　　　　　　　　　　┌病毒┤　　　　　
+　　　　┌非细胞实体┤　　└ＲＮＡ病毒
+　　　　│　　　　　│　　　　　┌类病毒
+　　　　│　　　　　└亚病毒因子┼卫星病毒
+　　　　│　　　　　　　　　　　└朊病毒
+　　　　│　　　　　　　　┌变形菌门
+生物实体┤　　　　┌细菌域┼厚壁菌门
+　　　　│　　　　│　　　├放线菌门
+　　　　│　　　　│　　　└蓝藻门
+　　　　│　　　　│　　　┌广古菌门
+　　　　│　　　　├古菌域┼泉古菌门
+　　　　└细胞生命┤　　　└奇古菌门
+　　　　　　　　　│　　　　　┌古虫界
+　　　　　　　　　│　　　　　├变形虫类
+　　　　　　　　　│　　　　　│　　　　　┌领鞭毛虫类
+　　　　　　　　　│　　　　　├后鞭毛生物┼真菌界
+　　　　　　　　　└真核生物域┤　　　　　└动物界
+　　　　　　　　　　　　　　　│　　　　　　┌根足虫类
+　　　　　　　　　　　　　　　├ＳＡＲ超类群┼囊泡虫类
+　　　　　　　　　　　　　　　│　　　　　　└不等鞭毛类
+　　　　　　　　　　　　　　　│　　　　　　┌灰胞藻
+　　　　　　　　　　　　　　　└原始质体生物┼红藻
+　　　　　　　　　　　　　　　　　　　　　　└绿色植物"></textarea>
+        </div>
     </div>
 
+    <script>
+        // 新增字号调节功能
+        let currentFontSize = 14; // 初始字号与CSS一致
+        function adjustFontSize(step) {
+            currentFontSize += step * 1; // 每次调整2px
+            currentFontSize = Math.max(1, Math.min(32, currentFontSize)); // 限制字号范围
+            document.getElementById('outputArea').style.fontSize = currentFontSize + 'px';
+        }
+    </script>
 
     <script>
+        // 半角转全角函数（保留行首连续的短线）
+        function halfToFull(str) {
+            let result = '';
+            const lines = str.split('\n');
+            
+            for (let line of lines) {
+                // 保留行首连续的半角短线
+                let dashCount = 0;
+                while (line[dashCount] === '-') {
+                    dashCount++;
+                }
+                
+                // 行首短线部分保持不变
+                const dashPart = line.substring(0, dashCount);
+                // 剩余部分进行半角转全角
+                let contentPart = line.substring(dashCount);
+                let convertedContent = '';
+                
+                for (let i = 0; i < contentPart.length; i++) {
+                    const charCode = contentPart.charCodeAt(i);
+                    
+                    // 处理空格（半角空格转全角空格）
+                    if (charCode === 32) {
+                        convertedContent += '\u3000'; // 全角空格
+                    }
+                    // 处理半角字符（!到~之间的字符）
+                    else if (charCode >= 33 && charCode <= 126) {
+                        convertedContent += String.fromCharCode(charCode + 65248);
+                    }
+                    // 其他字符保持不变
+                    else {
+                        convertedContent += contentPart.charAt(i);
+                    }
+                }
+                
+                result += dashPart + convertedContent + '\n';
+            }
+            
+            // 移除最后一个多余的换行符
+            return result.slice(0, -1);
+        }
+
         var s = ["诶，干啥呢！\n", "阿弥陀佛，施主稍安勿躁!\n", "连续点击也是一种乐趣~\n", "点得有点多了哟!\n", "请在左侧输入目录！！！\n"];
         var tree = [];
         var cnt = 0;//无效点击次数
 
+        // 添加输入事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputArea = document.getElementById('inputArea');
+            inputArea.addEventListener('input', function() {
+                // 使用防抖技术，避免频繁更新
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    transferText(1); // 默认使用生成1的方式
+                }, 500); // 延迟500ms执行
+            });
+        });
+
         function transferText(type) {
             //输入交互
             const inputText = document.getElementById("inputArea").value;//获取输入数据
-            if (inputText.length == 0) {
+            
+            // 新增：将输入内容转换为全角字符（保留行首短线）
+            const fullWidthText = halfToFull(inputText);
+            
+            if (fullWidthText.length == 0) {
                 if (cnt == 0) document.getElementById("outputArea").value = "";
                 cnt++;
                 if (cnt < 5) document.getElementById("outputArea").value += "请在左侧输入目录！！！\n";
@@ -201,7 +348,7 @@
 
             // 第一部分，解析成树状结构
             tree = [];
-            var lines = inputText.split("\n");//按行拆分
+            var lines = fullWidthText.split("\n");//按行拆分，使用转换后的全角文本
             var fa_stk = [];//父结点栈
             for (var i = 0; i <= maxlevel; i++) fa_stk[i] = -1;
             var top = -1;

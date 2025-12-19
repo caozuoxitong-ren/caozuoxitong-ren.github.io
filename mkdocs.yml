@@ -10,50 +10,49 @@ copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.
 # Contents 导航
 nav:
   - 首页: index.md
-  # - 文化: 化育篇\识\文化与文明.md
-  # - 道路篇: daolupian.md
-  # - 建树篇: jianshupian.md
-  # - 筑基篇:
-    # - 身:
-    #   - 经络系统:  
-    #     - 筋膜学理论: human-body/theory/fasciology/fasciology.md
-    #     - 人体经络系统: human-body/theory/meridian-system/meridian-system.md   
-    #     - 阴阳理论: human-body/theory/yin-yang-theory/yin-yang-theory.md
-    #     - 五行理论: human-body/theory/five-elements-theory/five-elements-theory.md
-    #   - 环境影响: huanjingyingxiang.md
-    #   - 养生之道:
-    #     - 少林洗髓易筋经: human-body/practice/yijinjing/yijinjing.md
-    #     - 少林内劲一指禅: human-body/practice/neijinyizhichan/neijinyizhichan.md
-    # - 心:
-    #   - 神经系统: # 宏观层面、介观层面、微观层面
-    #     - 人体神经系统: nervous-system/theory/nervous-system/nervous-system.md
-    #     - 大脑的功能框架: nervous-system/theory/brain-functional-architecture/brain-functional-architecture.md
-        # - 2.1.2 奖赏回路: jiangshanghuilu.md
-        # - 2.1.3 基底节: jidijie.md
-        # - 2.1.4 镜像神经元: jingxiangshenjingyuan.md
-        # - 2.1.5 默认网络: morenwangluo.md
-        # - 2.1.6 注意: zhuyi.md
-  - 未来篇:
-    - 人类文明分化的驱动力量: futrue/driver-of-human-civilization.md
-    - 未来潜在人类亚种详述: futrue/human-subspecies.md
-    - 亚种1：适应者: futrue/adapter-charter.md
-    - 亚种2：重塑者: futrue/reshaper-charter.md
-    - 亚种3：融合体: futrue/merger-charter.md
-    - 亚种4：基线人类: futrue/baseline-human-charter.md
-    # - 人类2.0计划: futrue/human-2.0-plan.md
-      # - 同道中人:
-  #     - 前8000~前5000年【新石器早期】伏羲氏: 同道中人\前8000~前5000年【新石器早期】伏羲氏.md
-  #     - 前6000~前3000年【新石器中期】神农氏: 同道中人\前6000~前3000年【新石器中期】神农氏.md
-  #     - 前565~前485年【古印度】乔达摩·悉达多: 同道中人\前565~前485年【古印度】乔达摩·悉达多.md
-  #     - 前551~前479年【春秋】孔子: 同道中人\前551~前479年【春秋】孔子.md
-  #     - 前384~前322年【古希腊】亚里士多德: 同道中人\前384~前322年【古希腊】亚里士多德.md
-  #     - 约58年~约147年【东汉】许慎: 同道中人\约58年~约147年【东汉】许慎.md
-  #     - 602~604年【唐】唐玄奘: 同道中人\602~604年【唐朝】唐玄奘.md
-  #     - 约1518~1593年【明】李时珍: 同道中人\约1518~1593年【明】李时珍.md
-  #     - 1596~1650年【法国】笛卡尔: 同道中人\1596~1650年【法国】笛卡尔.md
-  #     - 1724~1804年【德国】康德: 同道中人\1724~1804年【德国】康德.md
-  #     - 1893~1976年【近现代】毛泽东: 同道中人\1893~1976年【近现代】毛泽东.md
-
+  - 人与自身: 
+    - 1 身体层面:
+      - 1.1 理论知识:
+        - 筋膜学: human-self/body-system/theory/fasciology/fasciology.md
+        - 五行理论: human-self/body-system/theory/five-elements-theory/five-elements-theory.md
+        - 阴阳学说: human-self/body-system/theory/yinyang-theory/yinyang-theory.md
+        - 经络学: human-self/body-system/theory/meridian-theory/meridian-theory.md
+      - 1.2 养生实践:
+        - 易筋经: human-self/body-system/practice/yijinjing/yijinjing.md
+        # - 五禽戏: human-self/body-system/practice/wuqinxi/wuqinxi.md
+        # - 六字诀: human-self/body-system/practice/liuzijue/liuzijue.md
+        # - 八段锦: human-self/body-system/practice/baduanjin/baduanjin.md
+      # - 1.3 修道路线: human-self\body-system\dao\xiandao.md
+    - 2 心智层面:
+      - 2.1 理论知识:
+        - 神经系统: human-self\mental-system\theory\nervous-system\nervous-system.md
+        - 大脑功能结构框架图: human-self\mental-system\theory\brain-functional-architecture\brain-functional-architecture.md
+      - 2.2 心智训练: 
+        - 止观禅法: human-self\mental-system\practice\zhiguan-introduction.md
+        - 念住禅法: human-self\mental-system\practice\nianzhu-introduction.md
+    # - 3 修道路线: human-self\mental-system\dao\fodao.md
+    # - 3 行为层面:
+    #   - 3.1 理论知识:
+    #     - 行为科学概论: human-self/behavior-system/theory/behavior-science-introduction/behavior-science-introduction.md
+    #     - 行为设计原理: human-self/behavior-system/theory/behavior-design-principles/behavior-design-principles.md
+    #   - 3.2 行为改进实践:
+    #     - 习惯养成: human-self/behavior-system/practice/habit-formation/habit-formation.md
+    #     - 时间管理: human-self/behavior-system/practice/time-management/time-management.md
+  - 人与社会: 
+    - 理论:
+      - 人类文明分化的驱动力量: human-society/driver-of-human-civilization.md
+      - 未来人类演化图景: human-society/future-human-evolution-scenario.md
+      - 未来潜在人类亚种详述: human-society/human-subspecies.md
+      - 亚种1：适应者: human-society/adapter-charter.md
+      - 亚种2：重塑者: human-society/reshaper-charter.md
+      - 亚种3：融合体: human-society/merger-charter.md
+      - 亚种4：基线人类: human-society/baseline-human-charter.md
+  - 人与自然: human-nature.md
+  - 技术工具:
+    - githubpages搭建教程: tools\githubpages.md
+    - 义脉树枝图生成器: tools\yimaishuzhitu.html
+  # - 人物传记: biographies.md
+  # - 书单: booklist.md
 # Theme 主题设置
 theme:
   name: material
