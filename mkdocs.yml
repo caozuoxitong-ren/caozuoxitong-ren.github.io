@@ -48,11 +48,98 @@ nav:
       - 亚种3：融合体: human-society/merger-charter.md
       - 亚种4：基线人类: human-society/baseline-human-charter.md
   - 人与自然: human-nature/human-nature.md
+
+  - 国学:
+    - 蒙学:
+      - 三字经: mengxue/sanzijing.md
+      - 百家姓: mengxue/baijiaxing.md
+      - 千字文: mengxue/qianziwen.md
+      - 弟子规: mengxue/dizigui.md
+    - 小学:
+      - 文字学: guoxue/elementary-school/character-study.md
+      - 音韵学: guoxue/elementary-school/phonology.md
+      - 训诂学: guoxue/elementary-school/etymology.md
+    - 大学:
+      - 经学: guoxue/university/classics-study.md
+      - 史学: guoxue/university/history-study.md
+      - 子学: guoxue/university/philosophy-study.md
+      - 集学: guoxue/university/literature-study.md
+
+  - 数学:
+    - 数学分析: math/analysis.md
+    - 线性代数: math/linear-algebra.md
+    - 数论: math/number-theory.md
+    - 组合数学: math/combinatorics.md
+    - 概率论与统计学: math/probability-and-statistics.md
+    - 离散数学: math/discrete-mathematics.md
+
+  - 物理:
+    - 经典力学: physics/classical-mechanics.md
+    - 电磁学: physics/electromagnetism.md
+    - 热力学与统计物理: physics/thermodynamics-and-statistical-physics.md
+    - 量子力学: physics/quantum-mechanics.md
+    - 相对论: physics/relativity.md
+
+  - 算法:
+    - 赛事介绍: algorithm/competition-introduction.md
+    - 竞赛大纲: algorithm/competition-syllabus.md
+    - 入门级: 
+        - C++语法基础:
+            - 变量与基本数据类型: algorithm/CSP-J/cpp-basics/variables-and-basic-data-types.md
+            - 运算符与表达式: algorithm/CSP-J/cpp-basics/operators-and-expressions.md
+            - 控制结构: algorithm/CSP-J/cpp-basics/control-structures.md
+            - 函数与递归: algorithm/CSP-J/cpp-basics/functions-and-recursion.md
+            - 数组与字符串: algorithm/CSP-J/cpp-basics/arrays-and-strings.md
+            - 指针与引用: algorithm/CSP-J/cpp-basics/pointers-and-references.md
+            - 结构体与类: algorithm/CSP-J/cpp-basics/structures-and-classes.md
+            - 输入输出流: algorithm/CSP-J/cpp-basics/input-output-streams.md
+        - STL基础:
+            - 向量(vector): algorithm/CSP-J/stl-basics/vector.md
+            - 链表(list): algorithm/CSP-J/stl-basics/list.md
+            - 集合(set): algorithm/CSP-J/stl-basics/set.md
+            - 映射(map): algorithm/CSP-J/stl-basics/map.md
+            - 栈(stack)与队列(queue): algorithm/CSP-J/stl-basics/stack-and-queue.md
+            - 算法(Algorithms): algorithm/CSP-J/stl-basics/algorithms.md
+        - 基础算法:
+            - 枚举算法: algorithm/CSP-J/basic-algorithm/enumeration.md
+            - 模拟算法: algorithm/CSP-J/basic-algorithm/simulation.md
+            - 贪心算法: algorithm/CSP-J/basic-algorithm/greedy.md
+            - 排序算法: algorithm/CSP-J/basic-algorithm/sorting.md
+            - 二分算法: algorithm/CSP-J/basic-algorithm/binary-search.md
+            - 递推算法: algorithm/CSP-J/basic-algorithm/recurrence.md
+            - 递归算法: algorithm/CSP-J/basic-algorithm/recursion.md
+            - 高精度算法: algorithm/CSP-J/basic-algorithm/high-precision.md
+            - 前缀和算法: algorithm/CSP-J/basic-algorithm/prefix-sum.md
+        - 数据结构基础1:
+            - 链表: algorithm/CSP-J/data-structure-basics/linked-list.md
+            - 栈与队列: algorithm/CSP-J/data-structure-basics/stack-and-queue.md
+            - 哈希表: algorithm/CSP-J/data-structure-basics/hash-table.md
+        - 搜索算法基础:
+            - 深度优先搜索(DFS): algorithm/CSP-J/search-basics/depth-first-search.md
+            - 广度优先搜索(BFS): algorithm/CSP-J/search-basics/breadth-first-search.md
+        - 数据结构基础2:
+            - 树: algorithm/CSP-J/data-structure-advanced/tree.md
+            - 图: algorithm/CSP-J/data-structure-advanced/graph.md
+        - 动态规划基础:
+            - 线性动态规划: algorithm/CSP-J/dp-basics/linear-dynamic-programming.md
+            - 区间动态规划: algorithm/CSP-J/dp-basics/interval-dynamic-programming.md
+            - 背包问题: algorithm/CSP-J/dp-basics/knapsack-problem.md
+        - 数学基础:
+            - 数论基础: algorithm/CSP-J/math-basics/number-theory.md
+            - 组合数学基础: algorithm/CSP-J/math-basics/combinatorics.md
+            - 线性代数基础: algorithm/CSP-J/math-basics/linear-algebra.md
+            - 概率论基础: algorithm/CSP-J/math-basics/probability-theory.md
+            - 计算机编码: algorithm/CSP-J/math-basics/computer-encoding.md
+    - 提高级: algorithm/CSP-S.md
+        - 基础算法
+    - NOI级: algorithm/NOI.md
+
   - 技术工具:
-    - githubpages搭建教程: tools\githubpages.md
+    - githubpages搭建教程: tools\github-pages.md
     - 义脉树枝图生成器: tools\yimaishuzhitu.html
   # - 人物传记: biographies.md
   # - 书单: booklist.md
+
 # Theme 主题设置
 theme:
   name: material
