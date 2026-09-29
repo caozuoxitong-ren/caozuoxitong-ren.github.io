@@ -15,44 +15,83 @@
         })();
       </script>
     <style>
-        /* 新增字号调节按钮样式 */
+        /* 按钮组通用样式（移到输入/输出框外部，贴上边缘） */
         .font-controls {
             position: absolute;
-            top: 10px;
-            right: 20px;
+            top: -28px;
             z-index: 1;
             display: flex;
-            gap: 5px;
+            gap: 6px;
         }
+        .font-controls.left { left: 0; }
+        .font-controls.right { right: 0; }
     
+        /* ===== 关键改动：轻量“幽灵按钮”风格 =====
+           默认状态：透明底 + 浅灰字 + 淡边框，低调不抢眼
+           悬停状态：蓝色填充 + 白字，才真正凸显
+           目的：让顶部操作条不再头重脚轻，把视觉重心还给输入/输出框 */
         .font-controls button {
-            padding: 2px 8px;
-            font-size: 14px;
-            border-radius: 15px;
-            background: #3498db;
-            transition: all 0.3s;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: normal;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            color: #8595a8;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            transition: all 0.25s ease;
             width: auto;
+            cursor: pointer;
+            box-shadow: none;
+            line-height: 1.4;
         }
     
         .font-controls button:hover {
-            background: #2980b9;
-            transform: scale(1.05);
+            background: #5dade2;
+            color: #ffffff;
+            border-color: #5dade2;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(93, 173, 226, 0.25);
+        }
+
+        .font-controls button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* 复制成功提示（优雅简洁） */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(46, 204, 113, 0.95);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
     
     <style>
-        /* 新增标题样式 */
         h1 {
             text-align: center;
             font-size: 3em;
             color: #2c3e50;
             margin: 40px 0;
-            /* 减少上下间距(原30px→20px) */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             background: #f0f4f8;
         }
 
-        /* 优化容器居中 */
         body {
             display: flex;
             flex-direction: column;
@@ -71,14 +110,12 @@
             margin: 30px 0;
         }
 
-        /* 按钮容器样式 */
         .button-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
             justify-content: center;
             margin: 0 30px;
-            /* 增加左右间距(原20px→40px) */
         }
 
         button {
@@ -88,13 +125,29 @@
             border-radius: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
             width: 120px;
-            /* 固定按钮宽度 */
         }
 
         button:hover {
             background: #27ae60;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .button-container button {
+            position: relative;
+        }
+        .button-container button .sub-text {
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            right: 0;
+            font-size: 10px;
+            font-weight: normal;
+            color: #ffffff;
+            opacity: 0.9;
+            line-height: 1;
+            text-align: center;
+            pointer-events: none;
         }
 
         .container {
@@ -104,33 +157,42 @@
             justify-content: center;
             width: 525px;
             height: 500px;
-            /* max-width: 1200px; */
             max-width: 90vw;
         }
 
+        /* ===== 行号列：外层负责裁剪，内层负责位移 ===== */
         .numbers {
-            flex: 1;
-            border-right: 1px solid rgb(203 213 225);
-            overflow: hidden;
-            text-align: left;
+            flex: 0 0 auto;
+            min-width: 40px;
+            padding: 0 8px;
             box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+            border-right: 1px solid rgb(203 213 225);
             height: 500px;
+            position: relative;
         }
 
+        .numbers-content {
+            will-change: transform;
+        }
+
+        /* ===== 输入框：固定行高 ===== */
         .textarea {
+            flex: 1;
+            width: auto;
+            min-width: 0;
             outline: none;
             min-height: 10rem;
             max-width: 90vw;
             overflow-x: hidden;
             box-sizing: border-box;
-
-            width: 500px;
             height: 500px;
             padding: 25px;
-            /*左侧数字编号div的宽度*/
             border: 3px solid #2ecc71;
             border-radius: 10px;
             font-size: 16px;
+            line-height: 1.5;
             resize: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -140,12 +202,10 @@
             min-height: 10rem;
             overflow-x: hidden;
             box-sizing: border-box;
-
             width: 475px;
             max-width: 90vw;
             height: 500px;
             padding: 25px;
-            /*左侧数字编号div的宽度*/
             border: 3px solid #2ecc71;
             border-radius: 10px;
             font-size: 14px;
@@ -173,9 +233,20 @@
 <body>
     <h1>义脉树枝图生成器</h1>
     <div class="main-div">
-        <div class="container">
-            <div class="numbers"></div>
-            <textarea id="inputArea" class="textarea" placeholder="输入格式说明：
+        <div style="position: relative;">
+            <div class="font-controls left">
+                <button onclick="adjustInputFontSize(-1)">A-</button>
+                <button onclick="adjustInputFontSize(1)">A+</button>
+                <button onclick="resetInputFontSize()">默认</button>
+            </div>
+            <div class="font-controls right">
+                <button onclick="clearInput()">清空</button>
+            </div>
+            <div class="container">
+                <div class="numbers" id="numbersCol">
+                    <div class="numbers-content" id="numbersContent"></div>
+                </div>
+                <textarea id="inputArea" class="textarea" placeholder="输入格式说明：
 1. 第一行表示主题名称，行首无短线。
 2. 目录每增加一级，行首短线多一条，短线须为半角。
 3. 允许有空行，自动忽略空行。
@@ -220,16 +291,18 @@
 ----灰胞藻
 ----红藻
 ----绿色植物"></textarea>
+            </div>
         </div>
-        <!-- 新增按钮容器 -->
         <div class="button-container">
-            <button onclick="transferText(1)">生成1 →</button>
-            <button onclick="transferText(2)">生成2 →</button>
+            <button onclick="transferText(1, true)">生成1 →<span class="sub-text">子树居中</span></button>
+            <button onclick="transferText(2, true)">生成2 →<span class="sub-text">整体居中</span></button>
         </div>
-        <!-- 在输出textarea的容器外添加一个包裹div，并添加字号调节按钮 -->
         <div style="position: relative;">
-            <!-- 字号调节按钮容器 -->
-            <div class="font-controls">
+            <div class="font-controls left">
+                <button onclick="copyOutput()">复制</button>
+            </div>
+            <div class="font-controls right">
+                <button onclick="resetOutputFontSize()">默认</button>
                 <button onclick="adjustFontSize(-1)">A-</button>
                 <button onclick="adjustFontSize(1)">A+</button>
             </div>
@@ -261,163 +334,279 @@
     </div>
 
     <script>
-        // 新增字号调节功能
-        let currentFontSize = 14; // 初始字号与CSS一致
+        /* ========== 字号调节 + 默认恢复 ========== */
+        const DEFAULT_OUTPUT_FONT_SIZE = 14;
+        const DEFAULT_INPUT_FONT_SIZE = 16;
+
+        let currentFontSize = DEFAULT_OUTPUT_FONT_SIZE;
         function adjustFontSize(step) {
-            currentFontSize += step * 1; // 每次调整2px
-            currentFontSize = Math.max(1, Math.min(32, currentFontSize)); // 限制字号范围
+            currentFontSize += step * 1;
+            currentFontSize = Math.max(1, Math.min(32, currentFontSize));
             document.getElementById('outputArea').style.fontSize = currentFontSize + 'px';
+        }
+        function resetOutputFontSize() {
+            currentFontSize = DEFAULT_OUTPUT_FONT_SIZE;
+            document.getElementById('outputArea').style.fontSize = currentFontSize + 'px';
+        }
+
+        let currentInputFontSize = DEFAULT_INPUT_FONT_SIZE;
+        function adjustInputFontSize(step) {
+            currentInputFontSize += step * 1;
+            currentInputFontSize = Math.max(1, Math.min(32, currentInputFontSize));
+            document.getElementById('inputArea').style.fontSize = currentInputFontSize + 'px';
+            if (typeof window.refreshLineNumbers === 'function') {
+                window.refreshLineNumbers();
+            }
+        }
+        function resetInputFontSize() {
+            currentInputFontSize = DEFAULT_INPUT_FONT_SIZE;
+            document.getElementById('inputArea').style.fontSize = currentInputFontSize + 'px';
+            if (typeof window.refreshLineNumbers === 'function') {
+                window.refreshLineNumbers();
+            }
+        }
+
+        function clearInput() {
+            const inputArea = document.getElementById('inputArea');
+            inputArea.value = '';
+            inputArea.dispatchEvent(new Event('input', { bubbles: true }));
+            inputArea.focus();
+        }
+
+        /* ========== 复制功能 + 轻提示 ========== */
+        let toastTimer = null;
+
+        function showToast(msg) {
+            let toast = document.getElementById('copy-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'copy-toast';
+                toast.className = 'toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 1800);
+        }
+
+        function copyOutput() {
+            const outputArea = document.getElementById('outputArea');
+            let text = outputArea.value;
+            if (!text || text.trim() === '') {
+                text = outputArea.getAttribute('placeholder') || '';
+            }
+            if (!text || text.trim() === '') {
+                showToast('输出框为空，暂无可复制内容');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('已复制到剪贴板');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('已复制到剪贴板');
+                } else {
+                    showToast('复制失败，请手动选择复制');
+                }
+            } catch (err) {
+                showToast('复制失败，请手动选择复制');
+            }
+            document.body.removeChild(textarea);
         }
     </script>
 
     <script>
-        // 半角转全角函数（保留行首连续的短线）
+        /* ===================== 默认示例内容 ===================== */
+        const DEFAULT_INPUT = [
+            '生物实体',
+            '-非细胞实体',
+            '--病毒',
+            '---DNA病毒',
+            '---RNA病毒',
+            '--亚病毒因子',
+            '---类病毒',
+            '---卫星病毒',
+            '---朊病毒',
+            '-细胞生命',
+            '--细菌域',
+            '---变形菌门',
+            '---厚壁菌门',
+            '---放线菌门',
+            '---蓝藻门',
+            '--古菌域',
+            '---广古菌门',
+            '---泉古菌门',
+            '---奇古菌门',
+            '--真核生物域',
+            '---古虫界',
+            '---变形虫类',
+            '---后鞭毛生物',
+            '----领鞭毛虫类',
+            '----真菌界',
+            '----动物界',
+            '---SAR超类群',
+            '----根足虫类',
+            '----囊泡虫类',
+            '----不等鞭毛类',
+            '---原始质体生物',
+            '----灰胞藻',
+            '----红藻',
+            '----绿色植物'
+        ].join('\n');
+
         function halfToFull(str) {
             let result = '';
             const lines = str.split('\n');
-            
             for (let line of lines) {
-                // 保留行首连续的半角短线
                 let dashCount = 0;
-                while (line[dashCount] === '-') {
-                    dashCount++;
-                }
-                
-                // 行首短线部分保持不变
+                while (line[dashCount] === '-') dashCount++;
                 const dashPart = line.substring(0, dashCount);
-                // 剩余部分进行半角转全角
                 let contentPart = line.substring(dashCount);
                 let convertedContent = '';
-                
                 for (let i = 0; i < contentPart.length; i++) {
                     const charCode = contentPart.charCodeAt(i);
-                    
-                    // 处理空格（半角空格转全角空格）
                     if (charCode === 32) {
-                        convertedContent += '\u3000'; // 全角空格
-                    }
-                    // 处理半角字符（!到~之间的字符）
-                    else if (charCode >= 33 && charCode <= 126) {
+                        convertedContent += '\u3000';
+                    } else if (charCode >= 33 && charCode <= 126) {
                         convertedContent += String.fromCharCode(charCode + 65248);
-                    }
-                    // 其他字符保持不变
-                    else {
+                    } else {
                         convertedContent += contentPart.charAt(i);
                     }
                 }
-                
                 result += dashPart + convertedContent + '\n';
             }
-            
-            // 移除最后一个多余的换行符
             return result.slice(0, -1);
         }
 
         var s = ["诶，干啥呢！\n", "阿弥陀佛，施主稍安勿躁!\n", "连续点击也是一种乐趣~\n", "点得有点多了哟!\n", "请在左侧输入目录！！！\n"];
         var tree = [];
-        var cnt = 0;//无效点击次数
+        var cnt = 0;
 
-        // 添加输入事件监听器
         document.addEventListener('DOMContentLoaded', function() {
             const inputArea = document.getElementById('inputArea');
+            const outputArea = document.getElementById('outputArea');
             inputArea.addEventListener('input', function() {
-                // 使用防抖技术，避免频繁更新
                 clearTimeout(this.timer);
                 this.timer = setTimeout(() => {
-                    transferText(1); // 默认使用生成1的方式
-                }, 500); // 延迟500ms执行
+                    if (inputArea.value.trim() === '') {
+                        outputArea.value = '';
+                        return;
+                    }
+                    transferText(1, false);
+                }, 500);
             });
         });
 
-        function transferText(type) {
-            //输入交互
-            const inputText = document.getElementById("inputArea").value;//获取输入数据
-            
-            // 新增：将输入内容转换为全角字符（保留行首短线）
-            const fullWidthText = halfToFull(inputText);
-            
-            if (fullWidthText.length == 0) {
-                if (cnt == 0) document.getElementById("outputArea").value = "";
+        function transferText(type, allowDefault) {
+            if (allowDefault === undefined) allowDefault = true;
+
+            const inputArea = document.getElementById("inputArea");
+            const outputArea = document.getElementById("outputArea");
+
+            let inputText = inputArea.value;
+
+            if (allowDefault && inputText.trim().length === 0) {
+                inputText = DEFAULT_INPUT;
+            }
+
+            if (inputText.trim().length === 0) {
+                if (cnt == 0) outputArea.value = "";
                 cnt++;
-                if (cnt < 5) document.getElementById("outputArea").value += "请在左侧输入目录！！！\n";
-                else document.getElementById("outputArea").value += s[Math.ceil(Math.random() * 5) - 1];
-                return;//无数据，则无操作
+                if (cnt < 5) outputArea.value += "请在左侧输入目录！！！\n";
+                else outputArea.value += s[Math.ceil(Math.random() * 5) - 1];
+                return;
             }
             cnt = 0;
-            document.getElementById("outputArea").value = "";//清空输出框
 
-            // 第一部分，解析成树状结构
+            const fullWidthText = halfToFull(inputText);
+
+            if (fullWidthText.length == 0) {
+                outputArea.value = "请在左侧输入目录！！！\n";
+                return;
+            }
+
+            outputArea.value = "";
+
             tree = [];
-            var lines = fullWidthText.split("\n");//按行拆分，使用转换后的全角文本
-            var fa_stk = [];//父结点栈
+            var lines = fullWidthText.split("\n");
+            var fa_stk = [];
             for (var i = 0; i <= maxlevel; i++) fa_stk[i] = -1;
             var top = -1;
             fa_stk[++top] = 0;
             var maxlevel = 0;
             for (var i = 0, j = 0; j < lines.length; j++) {
-                //跳过空行
                 if (lines[j].length == 0) continue;
-                //判断当前层级
                 var level = 0;
-                while (lines[j][level] == '-') level++;//统计行首短线数量，知道该行层级
-                if (level > maxlevel) maxlevel = level;//记录最大深度
+                while (lines[j][level] == '-') level++;
+                if (level > maxlevel) maxlevel = level;
 
-                //检验输入是否合法
                 if (i == 0 && lines[j].length > 0 && lines[j][0] == '-') {
-                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：第一行为主题，行前不加短线。\n";
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：第一行为主题，行前不加短线。\n";
                     return;
                 } else if (i > 0 && level == 0) {
-                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：请在行前加短线。\n";
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：请在行前加短线。\n";
                     return;
                 } else if (level > 0 && top + 1 < level) {
-                    document.getElementById("outputArea").value = "第 " + (j + 1) + " 行有错误：层次不合理。\n";
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：层次不合理。\n";
                     return;
                 }
 
-                //寻找父结点
-                lines[j] = lines[j].substring(level);//去除行首短线
+                lines[j] = lines[j].substring(level);
                 var fa = -1;
                 if (level > 0) {
                     while (top >= level) fa_stk[top--] = -1;
                     fa = fa_stk[level - 1], fa_stk[++top] = i;
                 }
-                //记录结点信息，并处理父子关系
-                tree[i] = { id: i, value: lines[j], father: fa, children: [], level: level };//树状节点
+                tree[i] = { id: i, value: lines[j], father: fa, children: [], level: level };
                 if (fa >= 0) tree[fa].children.push(i);
-                i++;//有效行加 1
+                i++;
             }
 
-            // 第二部分，输出为横向树状结构
-            // 计算每个结点的缩进　＝　父结点的缩进 + 父结点数据宽度 + 制表符宽度
-            tree[0].indent = 0;//缩进
+            tree[0].indent = 0;
             for (var i = 1; i < tree.length; i++) {
                 tree[i].indent = tree[tree[i].father].indent + tree[tree[i].father].value.length;
             }
-            //计算每个结点的子树的上下高度 = 孩子结点的上下高度和（自下而上统计即可）
             for (var i = tree.length - 1; i >= 0; i--) {
-                if (tree[i].children.length == 0) {//叶子结点的上下高度为 1
+                if (tree[i].children.length == 0) {
                     tree[i].height = 1;
-                } else {//非叶子结点的高度，为子结点上下高度之和
+                } else {
                     var sum = 0;
                     for (var j = 0; j < tree[i].children.length; j++) sum += tree[tree[i].children[j]].height;
                     if (sum == 2 && tree[i].children.length == 2) {
-                        tree[i].height = 3;//只有两个孩子的结点，高度至少设置为3，绘图比较美观
+                        tree[i].height = 3;
                         tree[tree[i].children[0]].height = 2;
                     } else tree[i].height = sum;
                 }
             }
-            //计算每个节点输出的绝对行号
-            //先从根结点向叶子结点方向梳理，定位每个结点的绝对行号： = 上下偏移量之间的位置 = (up+down)/2;
             tree[0].up = 0, tree[0].down = tree[0].height - 1;
-            setPos(0, 0, tree[0].height - 1);//递归实现 setPos(id,up,down);
+            setPos(0, 0, tree[0].height - 1);
 
-            if (type == 1) {//父节点的位置等于所有子结点位置的中间
+            if (type == 1) {
                 for (var i = tree.length - 1; i >= 0; i--) {
-                    if (tree[i].children.length == 0) continue;//叶子结点
+                    if (tree[i].children.length == 0) continue;
                     tree[i].targetRow = Math.floor((tree[tree[i].children[0]].targetRow + tree[tree[i].children[tree[i].children.length - 1]].targetRow) / 2);
                 }
-            } else {//父结点位于整棵子树中间，更强调整体性
-                //从前往后检查，如果至少2个孩子，其中第一个孩子的位置与父结点相同，则递归把父结点位置向下调整一个
+            } else {
                 for (var i = 0; i < tree.length; i++) {
                     var cur = i;
                     while (tree[cur].children.length >= 1 && tree[tree[cur].children[0]].targetRow == tree[cur].targetRow) {
@@ -429,8 +618,7 @@
                 }
             }
 
-            //把输出结果看做一个二维表格，逐层填充
-            var top = [], down = [];//top记录每一列的最上面一个节点偏移量，down记录每一列最下面一个节点的偏移量
+            var top = [], down = [];
             for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {
                 top[curlevel] = 1000000, down[curlevel] = 0;
                 for (var j = 0; j < tree.length; j++) {
@@ -443,40 +631,30 @@
 
             var res = [];
             for (var i = 0; i < tree[0].height; i++) res[i] = "";
-            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {//逐层处理
+            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {
                 for (var i = 0; i < tree.length; i++) {
                     if (tree[i].level != curlevel) continue;
-                    //根结点特殊处理
                     if (curlevel == 0) {
-                        //填充所在level的所辖范围
-                        //(1)子树上半部分
                         for (var j = tree[i].up; j < tree[i].targetRow; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
-                        //(2)根结点所在行
                         res[tree[i].targetRow] += tree[i].value;
-                        //(3)子树下半部分
                         for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                     } else {
-                        //填充所在level的所辖范围
                         var fa = tree[i].father;
-                        //(1)子树上半部分
-
                         for (var j = tree[i].up; j < tree[i].targetRow; j++) {
-                            if (tree[fa].targetRow == j) res[j] += "┤"; //当前位置无节点，左侧有父结点
-                            else if (i != tree[fa].children[0]) res[j] += "│"; //当前位置无节点，左侧无节点，但还不是首结点
+                            if (tree[fa].targetRow == j) res[j] += "┤";
+                            else if (i != tree[fa].children[0]) res[j] += "│";
                             else res[j] += "　";
                             for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                         }
-                        //(2)根结点所在行
-                        if (tree[fa].children.length == 1) res[tree[i].targetRow] += "－";//只有一个孩子
-                        else if (tree[fa].children.length > 1 && tree[fa].children[0] == i) res[tree[i].targetRow] += "┌";//第一个孩子
-                        else if (tree[fa].children.length > 1 && tree[fa].children[tree[fa].children.length - 1] == i) res[tree[i].targetRow] += "└";//最后一个孩子
-                        else if (tree[i].targetRow == tree[fa].targetRow) res[tree[i].targetRow] += "┼";//否则，若在中间，且与父结点同一行
-                        else res[tree[i].targetRow] += "├";//与父结点不同行
+                        if (tree[fa].children.length == 1) res[tree[i].targetRow] += "－";
+                        else if (tree[fa].children.length > 1 && tree[fa].children[0] == i) res[tree[i].targetRow] += "┌";
+                        else if (tree[fa].children.length > 1 && tree[fa].children[tree[fa].children.length - 1] == i) res[tree[i].targetRow] += "└";
+                        else if (tree[i].targetRow == tree[fa].targetRow) res[tree[i].targetRow] += "┼";
+                        else res[tree[i].targetRow] += "├";
                         res[tree[i].targetRow] += tree[i].value;
-                        //(3)子树下半部分
                         for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) {
-                            if (tree[fa].targetRow == j) res[j] += "┤"; //当前位置无节点，左侧为父结点
-                            else if (i != tree[fa].children[tree[fa].children.length - 1]) res[j] += "│"; //当前位置无节点，左侧无节点，也非最后一个孩子
+                            if (tree[fa].targetRow == j) res[j] += "┤";
+                            else if (i != tree[fa].children[tree[fa].children.length - 1]) res[j] += "│";
                             else res[j] += "　";
                             for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
                         }
@@ -484,10 +662,8 @@
                 }
             }
 
-            //填充到输出框
-            for (var i = 0; i < res.length; i++) document.getElementById("outputArea").value += res[i] + "\n";
+            for (var i = 0; i < res.length; i++) outputArea.value += res[i] + "\n";
 
-            // 添加更流畅的动画 
             outputArea.animate([
                 { transform: 'translateY(-5px)', opacity: 0.9 },
                 { transform: 'translateY(0)', opacity: 1 }
@@ -498,11 +674,9 @@
         }
 
         function setPos(id, up, down) {
-            //处理当前结点
             if (id < 0 || id >= tree.length) return;
             tree[id].targetRow = Math.floor((up + down) / 2);
             tree[id].up = up, tree[id].down = down;
-            //递归处理子结点
             var pre = 0;
             for (var i = 0; i < tree[id].children.length; i++) {
                 var ch = tree[id].children[i];
@@ -513,29 +687,41 @@
     </script>
 
     <script>
+        /* ========== 行号逻辑（transform 同步滚动，消除取整误差） ========== */
         document.addEventListener('DOMContentLoaded', () => {
             const textarea = document.querySelector('.textarea');
-            const numbers = document.querySelector('.numbers');
-            function initLineNumbers() {
-                const lines = calcLines();
-                const lineDoms = Array.from({
-                    length: lines.length,
-                }, (_, i) => `<div>${lines[i] || '&nbsp;'}</div>`);
-                numbers.innerHTML = lineDoms.join('');
-            }
-            const textareaStyles = window.getComputedStyle(textarea);
-            [
-                'fontFamily', 'fontSize', 'fontWeight',
-                'letterSpacing', 'lineHeight', 'padding',
-            ].forEach((property) => {
-                numbers.style[property] = textareaStyles[property];
-            });
+            const numbersCol = document.getElementById('numbersCol');
+            const numbersContent = document.getElementById('numbersContent');
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
-            const font = `${textareaStyles.fontSize} ${textareaStyles.fontFamily}`;
-            context.font = font;
-            function calcStringLines(sentence, width) {
+
+            const parsePx = (v) => {
+                const n = parseFloat(v);
+                return isNaN(n) ? 0 : n;
+            };
+
+            function syncLineNumberStyle() {
+                const s = window.getComputedStyle(textarea);
+                ['fontFamily', 'fontSize', 'fontWeight', 'letterSpacing'].forEach((p) => {
+                    numbersContent.style[p] = s[p];
+                });
+                numbersContent.style.lineHeight = s.lineHeight;
+
+                const borderTop = parsePx(s.borderTopWidth);
+                const borderBottom = parsePx(s.borderBottomWidth);
+                const paddingTop = parsePx(s.paddingTop);
+                const paddingBottom = parsePx(s.paddingBottom);
+                numbersCol.style.paddingTop = (borderTop + paddingTop) + 'px';
+                numbersCol.style.paddingBottom = (borderBottom + paddingBottom) + 'px';
+            }
+
+            function syncScroll() {
+                numbersContent.style.transform = `translateY(${-textarea.scrollTop}px)`;
+            }
+
+            function calcStringLines(sentence, width, fontSize, fontFamily) {
                 if (!width) return 0;
+                context.font = `${fontSize} ${fontFamily}`;
                 const words = sentence.split('');
                 let lineCount = 0;
                 let currentLine = '';
@@ -552,15 +738,18 @@
                 if (currentLine.trim() !== '') lineCount++;
                 return lineCount;
             }
+
             function calcLines() {
+                const s = window.getComputedStyle(textarea);
                 const lines = textarea.value.split('\n');
                 const textareaWidth = textarea.getBoundingClientRect().width;
                 const textareaScrollWidth = textareaWidth - textarea.clientWidth;
-                const parseNumber = (v) => v.endsWith('px') ? parseInt(v.slice(0, -2), 10) : 0;
-                const textareaPaddingLeft = parseNumber(textareaStyles.paddingLeft);
-                const textareaPaddingRight = parseNumber(textareaStyles.paddingRight);
+                const textareaPaddingLeft = parsePx(s.paddingLeft);
+                const textareaPaddingRight = parsePx(s.paddingRight);
                 const textareaContentWidth = textareaWidth - textareaPaddingLeft - textareaPaddingRight - textareaScrollWidth;
-                const numLines = lines.map(lineString => calcStringLines(lineString, textareaContentWidth));
+                const numLines = lines.map(lineString =>
+                    calcStringLines(lineString, textareaContentWidth, s.fontSize, s.fontFamily)
+                );
                 let lineNumbers = [];
                 let i = 1;
                 while (numLines.length > 0) {
@@ -575,15 +764,41 @@
                 }
                 return lineNumbers;
             }
+
+            function initLineNumbers() {
+                syncLineNumberStyle();
+                const lines = calcLines();
+                const lineDoms = Array.from({
+                    length: lines.length,
+                }, (_, i) => `<div>${lines[i] || '&nbsp;'}</div>`);
+                numbersContent.innerHTML = lineDoms.join('');
+
+                const maxLineNumber = lines.length;
+                const digitCount = String(Math.max(maxLineNumber, 1)).length;
+                const s = window.getComputedStyle(textarea);
+                context.font = `${s.fontSize} ${s.fontFamily}`;
+                const digitsWidth = context.measureText('9'.repeat(digitCount)).width;
+                const paddingX = 16;
+                const borderX = 1;
+                const minWidth = Math.ceil(digitsWidth + paddingX + borderX);
+                numbersCol.style.minWidth = minWidth + 'px';
+
+                syncScroll();
+            }
+
+            window.refreshLineNumbers = initLineNumbers;
+
+            initLineNumbers();
+
             const ro = new ResizeObserver(() => {
                 const rect = textarea.getBoundingClientRect();
-                numbers.style.height = `${rect.height}px`;
+                numbersCol.style.height = `${rect.height}px`;
                 initLineNumbers();
             });
             ro.observe(textarea);
-            textarea.addEventListener('scroll', () => {
-                numbers.scrollTop = textarea.scrollTop;
-            });
+
+            textarea.addEventListener('scroll', syncScroll, { passive: true });
+
             textarea.addEventListener('input', () => {
                 initLineNumbers();
             });

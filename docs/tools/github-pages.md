@@ -1,131 +1,251 @@
-# 从零开始用GitHub Pages搭建个人网站
+# 从零开始用 MkDocs + GitHub Actions 搭建个人网站
 
-本文记录如何从零开始，使用GitHub Pages搭建个人网站。
+本文记录如何从零开始，使用 **MkDocs + Material 主题 + GitHub Actions** 搭建一个个人静态网站。只需要写 Markdown，推送到 GitHub，剩下的构建和部署全部自动完成。
 
-## 一、什么是GitHub Pages？
-GitHub Pages 是由 GitHub 提供的静态网站托管服务，直接与代码仓库集成，适用于个人、项目或组织的网页展示。其主要特点如下：
+---
 
-1. 免费托管
-    - 免费域名：默认提供 https://&lt;username&gt;.github.io 或 https://&lt;<orgname&gt;.github.io/<repo> 的访问地址。
-    - 支持绑定自定义域名：支持将网站关联到自己的域名（如 example.com）。
-    - 自动 HTTPS：免费提供 SSL 证书，且证书自动续签更新，保障传输安全。
-    - 无流量费用：适合中小型项目，但需注意 GitHub 的[使用限制](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages#github-pages-%E4%BD%BF%E7%94%A8%E9%99%90%E5%88%B6)。
-2. 与 GitHub 仓库深度集成
-    - 自动部署：将代码推送到关联的 GitHub 仓库后，自动构建并部署网站。
-    - 版本控制：通过 Git 管理网站内容，历史修改可追溯，支持协作开发。
-    - 分支/目录绑定：可通过仓库的特定分支（如 main、gh-pages）或 docs 目录直接发布内容。
-3. 支持静态网站生成器
-    - 内置 Jekyll：GitHub Pages 原生支持 Jekyll，推送 Markdown 文件后自动生成静态页面。
-    - 灵活扩展：可集成其他静态生成工具，通过 GitHub Actions 自定义构建流程。
-4. 使用限制
-    - 仅限静态内容：不支持服务端脚本（如 PHP、Python）或数据库。
-    - 构建限制：单次构建时长不超过 10 分钟，仓库容量建议小于 1GB。
-    - 流量限制：每月 100GB 带宽、10 万次访问（超出可能导致限流）。
-## 二、安装开发工具（以VSCode为例）
-1. 下载并安装 [Visual Studio Code 官网](https://code.visualstudio.com)
-2. [VSCode 帮助文档](https://code.visualstudio.com/docs)
+## 一、什么是 GitHub Pages？
 
-## 三、安装python环境
-1. 下载并安装 Python。访问 [Python 官方下载页面](https://www.python.org/downloads/)，选择对应的操作系统的版本（推荐下载 Python 3.10+ 的稳定版本）。
-2. 安装或更新 pip。
-    - 在命令行终端输入 `pip --version` ，如果输出pip的版本号，则说明已经安装。
-    - 若未安装 pip ，则可以下载 [get-pip.py](https://bootstrap.pypa.io/get-pip.py)，在命令行终端输入 `python get-pip.py`，安装最新版本的 pip。安装完成后，再次输入 `pip --version`，验证是否成功安装。
+GitHub Pages 是 GitHub 提供的**免费静态网站托管服务**。你把网页文件放在 GitHub 仓库里，GitHub 就会帮你发布成一个可以访问的网站。
 
-## 四、创建GitHub仓库
-1. 注册GitHub账号。访问[github.com](https://github.com)注册账号。
-2. 下载并安装 git。访问[git 官方下载页面](https://git-scm.com/downloads)，下载对应的操作系统版本。安装完成后在终端验证：
+它的主要特点：
 
-    ```git --version```<br>
-    ```# 如果安装成功，会显示版本信息，类似 git version 2.32.0```
+- **免费**：不需要买服务器，不需要备案（使用默认域名时）。
+- **自带 HTTPS**：自动提供 SSL 证书，安全访问。
+- **和仓库集成**：网站内容就是仓库里的文件，用 Git 管理，历史修改可追溯。
+- **支持自定义域名**：可以绑定你自己买的域名，比如 `example.com`。
+- **只支持静态内容**：不能跑 PHP、Python 等后端程序，也不能连数据库。适合文档、博客、个人主页。
 
-3. 配置 Git 用户账号信息（首次使用需要）：
+> GitHub Pages 原生支持 Jekyll，但 Jekyll 配置复杂，容易和 MkDocs 冲突。本文改用 **GitHub Actions** 自动构建，更干净、更可控。
 
-    ```git config --global user.name "你的GitHub用户名"```<br>
-    ```git config --global user.email "你的GitHub邮箱" ```
+### ⚠️ 使用限制（小白必读）
 
-4. 创建GitHub仓库。
-    1. GitHub支持两种类型的GitHub Pages：
-        - 用户页面（User Pages）。每个用户帐户可以有一个用户页面。页面的网址通常为：`<你的GitHub用户名>.github.io`
-        - 项目页面（Project Pages）：每个项目仓库可以有一个项目页面。每个账户可以有多个项目。页面的网址通常为：`<你的GitHub用户名>.github.io/<仓库名>`
-    2. 此处我们使用用户页面新建一个个人知识库：
-        - 新建一个仓库：仓库名**必须**为：`<你的GitHub用户名>.github.io`，选择Public可见性。
-        - 例如：github用户名为myname，建立的仓库名应为：`myname.github.io` (两个点也是仓库名的一部分)
-5. 配置github pages页面
-    1. 在项目setting中，找到pages选项卡，
-    2. 设置Build and deployment的Source为GitHub Actions
-    3. 选择：GitHub Pages Jekyll，点击configure，默认即可，点击编辑框右上角的commit changes...保存。
-    4. 测试访问：稍等片刻，等待部署，可以在项目的Actions选项卡中查看部署进度。部署完成后，可以访问：`https://<你的GitHub用户名>.github.io/`
-    5. （可选）自定义域名。如果不需要，可以跳过此步。
-        1. 购买域名。
-        2. 设置DNS解析。如果有自己的域名，可以添加解析记录：
-            - 主机记录：www ,记录类型：CNAME，记录值：<你的GitHub用户名>.github.io
-            - 主机记录：@ ,记录类型：CNAME，记录值：<你的GitHub用户名>.github.io
-        3. 在github的项目<你的GitHub用户名>.github.io中，设置自定义域名：在 Settings-->pages-->Custom domain，填写自定义域名，保存即可，默认勾选Enforce HTTPS。
-        4. 设置完成后，当前网站将变得不可访问，需要对项目文件进行必要设置，参考下面文档。
+GitHub Pages 虽然免费，但**不是无限网盘**，不能拿来传视频、大图或做下载站。官方限制如下：
 
-## 五、使用mkdocs构建网站
+| 项目 | 限制 | 说明 |
+|------|------|------|
+| 仓库容量 | 建议 < 1GB | 单个仓库最好不要超过 1GB，否则可能被限流 |
+| 月流量 | 约 100GB | 每月访问量约 10 万次，超出可能被暂时限流 |
+| 单次构建 | 不超过 10 分钟 | 构建太慢会失败，所以不要放太多大文件 |
+| 内容类型 | 仅静态 | 不支持后端程序、数据库、视频流媒体 |
 
-MkDocs是一个快速、简单、华丽的静态网站生成器，适用于构建项目文档。
+**结论**：GitHub Pages 适合放**文字、图片、代码**，不适合放**视频、大型压缩包、频繁下载的资源**。如果你要放视频，请用 B 站、YouTube 等平台，然后嵌入链接。
 
-1. 同步github仓库：`git clone https://github.com/<用户名>/<用户名>.github.io.git`，此时本地电脑上应该有一个项目目录：`<用户名>.github.io`
-2. 使用mkdocs生成网站：进入项目目录`<用户名>.github.io`，然后输入：`mkdocs new .`(注意，最后有个点，表示在当前目录下)。
-3. 生成网站静态文件：运行命令 `mkdocs build`，可以在site目录下查看。
-4. 本地测试：运行命令 `mkdocs serve`，即可在本地测试预览网站 http://127.0.0.1:8000/
-5. 创建跳转页面。如果使用了自定义域名，github pages会默认从根目录下寻找index.html文件，可以直接在根目录下创建一个跳转页面 index.html，链接到site/index.html，内容如下：
+---
 
-```
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0; url=site/index.html">
-    <title>Redirecting...</title>
-</head>
-<body>
-    <p>If you are not redirected automatically, <a href="another-page.html">click here</a>.</p>
-</body>
-</html>
+## 二、个人页面 vs 项目页面
+
+GitHub Pages 分两种，建仓库前要先想好选哪种。
+
+| 类型 | 仓库名要求 | 访问地址 | 数量限制 |
+|------|------------|----------|----------|
+| **用户页面** | 必须为 `<你的用户名>.github.io` | `https://<用户名>.github.io/` | 每个账号只能有一个 |
+| **项目页面** | 任意名称 | `https://<用户名>.github.io/<仓库名>/` | 每个仓库都可以有一个 |
+
+**怎么选？**
+
+- 如果你想做一个**个人网站、知识库、博客**，希望地址简短干净，选**用户页面**。
+- 如果你已经有一个用户页面，或者想给某个具体项目做文档站，选**项目页面**。
+
+本文以**用户页面**为例。新建仓库时，仓库名必须为 `<你的用户名>.github.io`，可见性选择 **Public**。
+
+---
+
+## 三、准备工作
+
+### 1. 安装必要工具
+
+- **Git**：版本控制。下载：https://git-scm.com/downloads
+- **Python 3.10+**：MkDocs 运行环境。下载：https://www.python.org/downloads/
+- **VS Code**（可选）：代码编辑器。下载：https://code.visualstudio.com
+
+安装完成后，在终端验证：
+
+```bash
+git --version
+python --version
+pip --version
 ```
 
-## 六、将网站推送到github仓库
-1. 每次推送前，都要重新生成一下网站，保证是最新的：`mkdocs build`
-2. 暂存更改。将更改的文件暂存起来，可以使用以下命令：git add . (注意，这里add后面有个点"."，表示当前目录下的所有改动)
-3. 提交更改。将暂存的更改提交到本地的版本库，可以使用以下命令：`git commit -m "提交说明例如初始化网站"`
-4. 推送到远程仓库。将本地的分支版本上传到远程仓库，可以使用以下命令：`git push`
-5. 等待github pages自动部署，稍等一会即可访问：`https://<你的GitHub用户名>.github.io/` 或者：`https://你的域名`
+### 2. 配置 Git 用户信息（首次使用）
 
-## 七、配置网站
-MkDocs有一堆很好看的主题，这里我们将使用Material for MkDocs作为主题。
-
-1. 安装 Material for MkDocs，使用命令：`pip install mkdocs-material`
-2. 修改配置文件 `mkdocs.yml`，内容如下：
-
+```bash
+git config --global user.name "你的GitHub用户名"
+git config --global user.email "你的GitHub邮箱"
 ```
-site_name: 孙悟空的blog # 设置网站名称
 
-# 主题设置
+---
+
+## 四、初始化本地 MkDocs 项目
+
+1. 克隆仓库到本地：
+
+   ```bash
+   git clone https://github.com/<用户名>/<用户名>.github.io.git
+   cd <用户名>.github.io
+   ```
+
+2. 安装 MkDocs 和 Material 主题：
+
+   ```bash
+   pip install mkdocs mkdocs-material
+   ```
+
+3. 生成基础项目：
+
+   ```bash
+   mkdocs new .
+   ```
+
+   项目里会出现 `docs/` 文件夹和 `mkdocs.yml` 文件。
+
+4. 本地预览：
+
+   ```bash
+   mkdocs serve
+   ```
+
+   浏览器打开 `http://127.0.0.1:8000/`，看到默认页面即成功。
+
+---
+
+## 五、配置 `mkdocs.yml`
+
+编辑 `mkdocs.yml`，使用以下最简配置：
+
+```yaml
+site_name: 我的个人网站
+site_url: https://<用户名>.github.io/
+
 theme:
-  name: material # 使用material主题
-  language: 'zh' # 界面语言设为中文
+  name: material
+  language: zh
   features:
-    - navigation.tabs # 顶部横向导航面板
+    - navigation.tabs
 
-# 导航目录
 nav:
-  - 简介: index.md
-  - 文章:
-    - 第一篇文章: index.md
-    - 第二篇文章: index2.md
-  - 关于:
-    - 关于本网站: about.md
+  - 首页: index.md
 ```
 
-重新构建mkdocs build和同步到github仓库中。
+保存后，`mkdocs serve` 会自动重载，页面变成 Material 主题。
 
-## 八、参考文档
-1. GitHub Pages入门文档：[多语言版](https://pages.github.com/)
-2. material for mkdocs 参考文档：[中文版](http://mkdoc-material.llango.com/) 或 [英文版](https://squidfunk.github.io/mkdocs-material/)
-3. Markdown 教程：[中文版](https://markdown.com.cn/) 或 [英文版](https://www.markdownguide.org/)
+---
 
-<div style="text-align: center;">
-<img src="/site/image/weixin-code.png" alt="微信公众号-人的操作系统" />
-</div>
+## 六、添加自动部署工作流
+
+在项目根目录创建以下两个文件。
+
+### 1. `requirements.txt`
+
+```txt
+mkdocs>=1.6
+mkdocs-material>=9.5
+```
+
+### 2. `.github/workflows/deploy-docs.yml`
+
+```yaml
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build site
+        run: mkdocs build
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
+```
+
+---
+
+## 七、推送并配置 GitHub Pages
+
+1. 提交并推送：
+
+   ```bash
+   git add .
+   git commit -m "初始化 MkDocs 项目"
+   git push
+   ```
+
+2. 打开 GitHub 仓库的 **Actions** 标签页，等待工作流运行完成（绿色 ✅）。
+
+3. 进入 **Settings → Pages**：
+   - **Source** 选择 **Deploy from a branch**
+   - **Branch** 选择 **gh-pages**，目录选 **/(root)**
+   - 点击 **Save**
+
+4. 稍等片刻，访问 `https://<用户名>.github.io/` 即可看到网站。
+
+> **注意**：如果仓库里存在 GitHub 默认生成的 `jekyll-gh-pages.yml` 工作流，请删除它，否则会和我们的工作流冲突。
+
+---
+
+## 八、自定义域名（可选）
+
+1. 在域名服务商处添加 DNS 解析：
+   - 主机记录 `@`，类型 `A`，记录值 `185.199.108.153`（共四条，最后一位 108~111）
+   - 主机记录 `www`，类型 `CNAME`，记录值 `<用户名>.github.io`
+
+2. 在 **Settings → Pages → Custom domain** 填写你的域名，保存。
+
+3. 在 `docs/` 下新建 `CNAME` 文件，内容为你的域名（例如 `example.com`）。
+
+4. 等待 DNS 生效后，勾选 **Enforce HTTPS**。
+
+---
+
+## 九、日常更新
+
+以后只需要：
+
+```bash
+# 1. 修改 docs/ 下的 Markdown 文件
+# 2. 本地预览（可选）
+mkdocs serve
+
+# 3. 推送
+git add .
+git commit -m "更新文章"
+git push
+```
+
+GitHub Actions 会自动构建并部署，你不需要做任何额外操作。
+
+---
+
+## 十、参考文档
+
+- [GitHub Pages 官方文档](https://docs.github.com/zh/pages)
+- [Material for MkDocs 官方文档](https://squidfunk.github.io/mkdocs-material/)
+- [MkDocs 官方文档](https://www.mkdocs.org/)
+- [Markdown 教程](https://markdown.com.cn/)
+
+---
+
+**总结**：本地写 Markdown，推送到 GitHub，Actions 自动构建并发布到 `gh-pages` 分支，GitHub Pages 从该分支发布网站。整个流程干净、自动、无需手动构建。注意不要用它托管视频或大文件，否则可能被限流。
