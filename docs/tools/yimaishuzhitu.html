@@ -26,10 +26,9 @@
         .font-controls.left { left: 0; }
         .font-controls.right { right: 0; }
     
-        /* ===== 关键改动：轻量“幽灵按钮”风格 =====
+        /* ===== 轻量“幽灵按钮”风格 =====
            默认状态：透明底 + 浅灰字 + 淡边框，低调不抢眼
-           悬停状态：蓝色填充 + 白字，才真正凸显
-           目的：让顶部操作条不再头重脚轻，把视觉重心还给输入/输出框 */
+           悬停状态：蓝色填充 + 白字，才真正凸显 */
         .font-controls button {
             padding: 3px 10px;
             font-size: 12px;
@@ -58,7 +57,7 @@
             box-shadow: none;
         }
 
-        /* 复制成功提示（优雅简洁） */
+        /* 提示气泡（复制成功 + 连点俏皮话 共用） */
         .toast {
             position: fixed;
             top: 30px;
@@ -502,6 +501,27 @@
         var tree = [];
         var cnt = 0;
 
+        /* ===================== 连点俏皮话 =====================
+           当输入内容不变、连续点击同一个生成按钮 4 次及以上时，
+           每次都会弹出随机一句俏皮话，同时正常生成内容。 */
+        var s2 = [
+            "诶，干啥呢！",
+            "点击【默认】，可以恢复默认字体大小。",
+            "阿弥陀佛，施主稍安勿躁!",
+            "点击【A-/A+】，可以调节字体大小。",
+            "连续点击也是一种乐趣~",
+            "点击【清空】，可以清空输入框。",
+            "点得有点多了哟!",
+            "点击【复制】，可以复制输出框内容。"
+        ];
+
+        // 连点状态：记录上次点击时的输入内容、按钮类型、连续次数
+        var clickState = {
+            lastInput: null,
+            lastType: null,
+            count: 0
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             const inputArea = document.getElementById('inputArea');
             const outputArea = document.getElementById('outputArea');
@@ -522,6 +542,24 @@
 
             const inputArea = document.getElementById("inputArea");
             const outputArea = document.getElementById("outputArea");
+
+            /* 连点检测：只在用户点击按钮时统计（allowDefault 为 true）
+               输入内容不变 + 同一个按钮 → 累加；否则重置为 1 */
+            if (allowDefault) {
+                const currentInput = inputArea.value;
+                if (clickState.lastInput === currentInput && clickState.lastType === type) {
+                    clickState.count++;
+                } else {
+                    clickState.count = 1;
+                    clickState.lastInput = currentInput;
+                    clickState.lastType = type;
+                }
+                // 连续点击 4 次及以上，每次都会弹出随机俏皮话
+                if (clickState.count >= 4) {
+                    const msg = s2[Math.floor(Math.random() * s2.length)];
+                    showToast(msg);
+                }
+            }
 
             let inputText = inputArea.value;
 
