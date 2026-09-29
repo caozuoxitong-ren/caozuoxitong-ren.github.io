@@ -10,41 +10,41 @@ site_url: https://caozuoxitong.ren
 # ============================================================
 nav:
   - 首页: index.md
-  - 人的操作系统: kernel.md
-  - 国学:
-    - 蒙学:
-      - 三字经: mengxue/sanzijing.md
-      - 百家姓: mengxue/baijiaxing.md
-      - 千字文: mengxue/qianziwen.md
-      - 弟子规: mengxue/dizigui.md
-    - 小学:
-      - 文字学: guoxue/elementary-school/character-study.md
-      - 音韵学: guoxue/elementary-school/phonology.md
-      - 训诂学: guoxue/elementary-school/etymology.md
-    - 大学:
-      - 经学: guoxue/university/classics-study.md
-      - 史学: guoxue/university/history-study.md
-      - 子学: guoxue/university/philosophy-study.md
-      - 集学: guoxue/university/literature-study.md
+  # - 人的操作系统: kernel.md
+  # - 国学:
+  #   - 蒙学:
+  #     - 三字经: mengxue/sanzijing.md
+  #     - 百家姓: mengxue/baijiaxing.md
+  #     - 千字文: mengxue/qianziwen.md
+  #     - 弟子规: mengxue/dizigui.md
+  #   - 小学:
+  #     - 文字学: guoxue/elementary-school/character-study.md
+  #     - 音韵学: guoxue/elementary-school/phonology.md
+  #     - 训诂学: guoxue/elementary-school/etymology.md
+  #   - 大学:
+  #     - 经学: guoxue/university/classics-study.md
+  #     - 史学: guoxue/university/history-study.md
+  #     - 子学: guoxue/university/philosophy-study.md
+  #     - 集学: guoxue/university/literature-study.md
 
-  - 数学:
-    - 数学分析: math/analysis.md
-    - 线性代数: math/linear-algebra.md
-    - 数论: math/number-theory.md
-    - 组合数学: math/combinatorics.md
-    - 概率论与统计学: math/probability-and-statistics.md
-    - 离散数学: math/discrete-mathematics.md
+  # - 数学:
+  #   - 数学分析: math/analysis.md
+  #   - 线性代数: math/linear-algebra.md
+  #   - 数论: math/number-theory.md
+  #   - 组合数学: math/combinatorics.md
+  #   - 概率论与统计学: math/probability-and-statistics.md
+  #   - 离散数学: math/discrete-mathematics.md
 
-  - 物理:
-    - 经典力学: physics/classical-mechanics.md
-    - 电磁学: physics/electromagnetism.md
-    - 热力学与统计物理: physics/thermodynamics-and-statistical-physics.md
-    - 量子力学: physics/quantum-mechanics.md
-    - 相对论: physics/relativity.md
+  # - 物理:
+  #   - 经典力学: physics/classical-mechanics.md
+  #   - 电磁学: physics/electromagnetism.md
+  #   - 热力学与统计物理: physics/thermodynamics-and-statistical-physics.md
+  #   - 量子力学: physics/quantum-mechanics.md
+  #   - 相对论: physics/relativity.md
 
   - 技术工具:
-    - githubpages搭建教程: tools\github-pages.md
-    - 义脉树枝图生成器: tools\yimaishuzhitu.html
+    # - githubpages搭建教程: tools\github-pages.md
+    - 义脉树枝图生成器: tools/yimaishuzhitu.html
   # - 人物传记: biographies.md
   # - 书单: booklist.md
 
