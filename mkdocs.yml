@@ -10,9 +10,9 @@ site_url: https://caozuoxitong.ren
 # ============================================================
 nav:
   - 首页: index.md
-  - 技术文章:
-    - MkDocs+GitHub pages建站指南: tools/github-pages.md
-  - 义脉树枝图生成器↗: tools/yimaishuzhitu.html
+  # - 技术文章:
+    # - MkDocs+GitHub pages建站指南: tools/github-pages.md
+  # - 义脉树枝图生成器↗: tools/yimaishuzhitu.html
   # - 人物传记: biographies.md
   # - 书单: booklist.md
 
