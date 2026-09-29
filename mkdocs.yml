@@ -1,54 +1,16 @@
-# Project Information
+# ============================================================
+# 站点信息
+# ============================================================
 site_name: 人的操作系统
 site_description: 探索和构建人的操作系统
-site_author: Human Operate System Lab
 site_url: https://caozuoxitong.ren
-site_dir: site
-docs_dir: docs
-copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.ren All Rights Reserved.'
 
-# Contents 导航
+# ============================================================
+# 导航目录
+# ============================================================
 nav:
   - 首页: index.md
-  - 人与自身: 
-    - 1 身体层面:
-      - 1.1 理论知识:
-        - 筋膜学: human-self/body-system/theory/fasciology/fasciology.md
-        - 五行理论: human-self/body-system/theory/five-elements-theory/five-elements-theory.md
-        - 阴阳学说: human-self/body-system/theory/yinyang-theory/yinyang-theory.md
-        - 经络学: human-self/body-system/theory/meridian-theory/meridian-theory.md
-      - 1.2 养生实践:
-        - 易筋经: human-self/body-system/practice/yijinjing/yijinjing.md
-        # - 五禽戏: human-self/body-system/practice/wuqinxi/wuqinxi.md
-        # - 六字诀: human-self/body-system/practice/liuzijue/liuzijue.md
-        # - 八段锦: human-self/body-system/practice/baduanjin/baduanjin.md
-      # - 1.3 修道路线: human-self\body-system\dao\xiandao.md
-    - 2 心智层面:
-      - 2.1 理论知识:
-        - 神经系统: human-self\mental-system\theory\nervous-system\nervous-system.md
-        - 大脑功能结构框架图: human-self\mental-system\theory\brain-functional-architecture\brain-functional-architecture.md
-      - 2.2 心智训练: 
-        - 止观禅法: human-self\mental-system\practice\zhiguan-introduction.md
-        - 念住禅法: human-self\mental-system\practice\nianzhu-introduction.md
-    # - 3 修道路线: human-self\mental-system\dao\fodao.md
-    # - 3 行为层面:
-    #   - 3.1 理论知识:
-    #     - 行为科学概论: human-self/behavior-system/theory/behavior-science-introduction/behavior-science-introduction.md
-    #     - 行为设计原理: human-self/behavior-system/theory/behavior-design-principles/behavior-design-principles.md
-    #   - 3.2 行为改进实践:
-    #     - 习惯养成: human-self/behavior-system/practice/habit-formation/habit-formation.md
-    #     - 时间管理: human-self/behavior-system/practice/time-management/time-management.md
-  - 人与社会: 
-    - 理论:
-      - 人类文明分化的驱动力量: human-society/driver-of-human-civilization.md
-      - 未来人类演化图景: human-society/future-human-evolution-scenario.md
-      - 未来潜在人类亚种详述: human-society/human-subspecies.md
-      - 亚种1：适应者: human-society/adapter-charter.md
-      - 亚种2：重塑者: human-society/reshaper-charter.md
-      - 亚种3：融合体: human-society/merger-charter.md
-      - 亚种4：基线人类: human-society/baseline-human-charter.md
-  - 人与自然: human-nature/human-nature.md
-
+  - 人的操作系统: kernel.md
   - 国学:
     - 蒙学:
       - 三字经: mengxue/sanzijing.md
@@ -80,90 +42,87 @@ nav:
     - 量子力学: physics/quantum-mechanics.md
     - 相对论: physics/relativity.md
 
-  - 算法:
-    - 赛事介绍: algorithm/competition-introduction.md
-    - 竞赛大纲: algorithm/competition-syllabus.md
-    - 入门级: 
-        - C++语法基础:
-            - 变量与基本数据类型: algorithm/CSP-J/cpp-basics/variables-and-basic-data-types.md
-            - 运算符与表达式: algorithm/CSP-J/cpp-basics/operators-and-expressions.md
-            - 控制结构: algorithm/CSP-J/cpp-basics/control-structures.md
-            - 函数与递归: algorithm/CSP-J/cpp-basics/functions-and-recursion.md
-            - 数组与字符串: algorithm/CSP-J/cpp-basics/arrays-and-strings.md
-            - 指针与引用: algorithm/CSP-J/cpp-basics/pointers-and-references.md
-            - 结构体与类: algorithm/CSP-J/cpp-basics/structures-and-classes.md
-            - 输入输出流: algorithm/CSP-J/cpp-basics/input-output-streams.md
-        - STL基础:
-            - 向量(vector): algorithm/CSP-J/stl-basics/vector.md
-            - 链表(list): algorithm/CSP-J/stl-basics/list.md
-            - 集合(set): algorithm/CSP-J/stl-basics/set.md
-            - 映射(map): algorithm/CSP-J/stl-basics/map.md
-            - 栈(stack)与队列(queue): algorithm/CSP-J/stl-basics/stack-and-queue.md
-            - 算法(Algorithms): algorithm/CSP-J/stl-basics/algorithms.md
-        - 基础算法:
-            - 枚举算法: algorithm/CSP-J/basic-algorithm/enumeration.md
-            - 模拟算法: algorithm/CSP-J/basic-algorithm/simulation.md
-            - 贪心算法: algorithm/CSP-J/basic-algorithm/greedy.md
-            - 排序算法: algorithm/CSP-J/basic-algorithm/sorting.md
-            - 二分算法: algorithm/CSP-J/basic-algorithm/binary-search.md
-            - 递推算法: algorithm/CSP-J/basic-algorithm/recurrence.md
-            - 递归算法: algorithm/CSP-J/basic-algorithm/recursion.md
-            - 高精度算法: algorithm/CSP-J/basic-algorithm/high-precision.md
-            - 前缀和算法: algorithm/CSP-J/basic-algorithm/prefix-sum.md
-        - 数据结构基础1:
-            - 链表: algorithm/CSP-J/data-structure-basics/linked-list.md
-            - 栈与队列: algorithm/CSP-J/data-structure-basics/stack-and-queue.md
-            - 哈希表: algorithm/CSP-J/data-structure-basics/hash-table.md
-        - 搜索算法基础:
-            - 深度优先搜索(DFS): algorithm/CSP-J/search-basics/depth-first-search.md
-            - 广度优先搜索(BFS): algorithm/CSP-J/search-basics/breadth-first-search.md
-        - 数据结构基础2:
-            - 树: algorithm/CSP-J/data-structure-advanced/tree.md
-            - 图: algorithm/CSP-J/data-structure-advanced/graph.md
-        - 动态规划基础:
-            - 线性动态规划: algorithm/CSP-J/dp-basics/linear-dynamic-programming.md
-            - 区间动态规划: algorithm/CSP-J/dp-basics/interval-dynamic-programming.md
-            - 背包问题: algorithm/CSP-J/dp-basics/knapsack-problem.md
-        - 数学基础:
-            - 数论基础: algorithm/CSP-J/math-basics/number-theory.md
-            - 组合数学基础: algorithm/CSP-J/math-basics/combinatorics.md
-            - 线性代数基础: algorithm/CSP-J/math-basics/linear-algebra.md
-            - 概率论基础: algorithm/CSP-J/math-basics/probability-theory.md
-            - 计算机编码: algorithm/CSP-J/math-basics/computer-encoding.md
-    - 提高级: algorithm/CSP-S.md
-        - 基础算法
-    - NOI级: algorithm/NOI.md
-
   - 技术工具:
     - githubpages搭建教程: tools\github-pages.md
     - 义脉树枝图生成器: tools\yimaishuzhitu.html
   # - 人物传记: biographies.md
   # - 书单: booklist.md
 
-# Theme 主题设置
+# ============================================================
+# 主题设置
+# ============================================================
 theme:
   name: material
   features:
     - navigation.tabs
-    # - navigation.tabs.sticky # 固定导航条
     - navigation.expand
-    
-  language: 'zh'
+  language: zh
   font:
-    text: 'Fira Sans'
-    code: 'Fira Mono'
+    text: Fira Sans
+    code: Fira Mono
   palette:
-      # Toggle light mode
-      - scheme: default
-        primary: white
-        accent: red
-        toggle:
-          icon: material/weather-sunny
-          name: Switch to dark mode
-      # Toggle dark mode
-      - scheme: slate
-        primary: black
-        accent: teal
-        toggle:
-          icon: material/weather-night
-          name: Switch to light mode
+    - scheme: default
+      primary: white
+      accent: red
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+
+# ============================================================
+# 底部版权信息
+# ============================================================
+copyright:
+  本站总访问量 <span id="vercount_value_site_pv">Loading</span> 次 ·
+  访客数 <span id="vercount_value_site_uv">Loading</span> 人
+  <br>
+  '人的操作系统 版权所有 Copyright © 2025 - present caozuoxitong.ren All Rights Reserved.'
+# ============================================================
+# 额外配置
+# ============================================================
+extra:
+  social:
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:<你的邮箱>
+      name: 联系邮箱
+
+# ============================================================
+# Markdown 扩展
+# ============================================================
+markdown_extensions:
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
+      tex_inline_wrap: ['\(', '\)', '$', '$']
+      tex_block_wrap: ['\[', '\]', '$$', '$$']
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {}
+
+# ============================================================
+# 额外加载的 JavaScript（按顺序）
+# ============================================================
+extra_javascript:
+  # MathJax：先配置，后主库
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+  # Mermaid：先主库，后初始化
+  - javascripts/mermaid.min.js
+  - javascripts/mermaid.js
+
+  # 外链新标签打开
+  - javascripts/external-links.js
+
+  # 访问计数器
+  - https://vercount.one/js

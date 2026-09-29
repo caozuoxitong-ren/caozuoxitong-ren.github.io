@@ -21,14 +21,17 @@ GitHub Pages 是由 GitHub 提供的静态网站托管服务，直接与代码�
     - 仅限静态内容：不支持服务端脚本（如 PHP、Python）或数据库。
     - 构建限制：单次构建时长不超过 10 分钟，仓库容量建议小于 1GB。
     - 流量限制：每月 100GB 带宽、10 万次访问（超出可能导致限流）。
+## 二、安装开发工具（以VSCode为例）
+1. 下载并安装 [Visual Studio Code 官网](https://code.visualstudio.com)
+2. [VSCode 帮助文档](https://code.visualstudio.com/docs)
 
-## 二、安装python环境
+## 三、安装python环境
 1. 下载并安装 Python。访问 [Python 官方下载页面](https://www.python.org/downloads/)，选择对应的操作系统的版本（推荐下载 Python 3.10+ 的稳定版本）。
 2. 安装或更新 pip。
     - 在命令行终端输入 `pip --version` ，如果输出pip的版本号，则说明已经安装。
     - 若未安装 pip ，则可以下载 [get-pip.py](https://bootstrap.pypa.io/get-pip.py)，在命令行终端输入 `python get-pip.py`，安装最新版本的 pip。安装完成后，再次输入 `pip --version`，验证是否成功安装。
 
-## 三、创建GitHub仓库
+## 四、创建GitHub仓库
 1. 注册GitHub账号。访问[github.com](https://github.com)注册账号。
 2. 下载并安装 git。访问[git 官方下载页面](https://git-scm.com/downloads)，下载对应的操作系统版本。安装完成后在终端验证：
 
@@ -60,7 +63,7 @@ GitHub Pages 是由 GitHub 提供的静态网站托管服务，直接与代码�
         3. 在github的项目<你的GitHub用户名>.github.io中，设置自定义域名：在 Settings-->pages-->Custom domain，填写自定义域名，保存即可，默认勾选Enforce HTTPS。
         4. 设置完成后，当前网站将变得不可访问，需要对项目文件进行必要设置，参考下面文档。
 
-## 四、使用mkdocs构建网站
+## 五、使用mkdocs构建网站
 
 MkDocs是一个快速、简单、华丽的静态网站生成器，适用于构建项目文档。
 
@@ -83,14 +86,14 @@ MkDocs是一个快速、简单、华丽的静态网站生成器，适用于构�
 </html>
 ```
 
-## 五、将网站推送到github仓库
+## 六、将网站推送到github仓库
 1. 每次推送前，都要重新生成一下网站，保证是最新的：`mkdocs build`
 2. 暂存更改。将更改的文件暂存起来，可以使用以下命令：git add . (注意，这里add后面有个点"."，表示当前目录下的所有改动)
 3. 提交更改。将暂存的更改提交到本地的版本库，可以使用以下命令：`git commit -m "提交说明例如初始化网站"`
 4. 推送到远程仓库。将本地的分支版本上传到远程仓库，可以使用以下命令：`git push`
 5. 等待github pages自动部署，稍等一会即可访问：`https://<你的GitHub用户名>.github.io/` 或者：`https://你的域名`
 
-## 六、配置网站
+## 七、配置网站
 MkDocs有一堆很好看的主题，这里我们将使用Material for MkDocs作为主题。
 
 1. 安装 Material for MkDocs，使用命令：`pip install mkdocs-material`
@@ -118,7 +121,7 @@ nav:
 
 重新构建mkdocs build和同步到github仓库中。
 
-## 七、参考文档
+## 八、参考文档
 1. GitHub Pages入门文档：[多语言版](https://pages.github.com/)
 2. material for mkdocs 参考文档：[中文版](http://mkdoc-material.llango.com/) 或 [英文版](https://squidfunk.github.io/mkdocs-material/)
 3. Markdown 教程：[中文版](https://markdown.com.cn/) 或 [英文版](https://www.markdownguide.org/)
