@@ -1,91 +1,43 @@
-# ============================================================
-# 站点信息
-# ============================================================
+# Project Information
 site_name: 人的操作系统
 site_description: 探索和构建人的操作系统
+site_author: Human Operate System Lab
 site_url: https://caozuoxitong.ren
+site_dir: site
+docs_dir: docs
+copyright: '人的操作系统 版权所有 Copyright © 2018-2025 caozuoxitong.ren All Rights Reserved.'
 
-# ============================================================
-# 导航目录
-# ============================================================
+# Contents 导航
 nav:
   - 首页: index.md
+  - 人的操作系统: 
+    - 身心层:
+      - 筋膜学理论: body/20200720-fasciology/20200720-fasciology.md
+  - 技术文章:
+    - 用GitHub Pages搭建个人网站: technology/20250118-githubpages.md
+  - 国家智慧教育公共服务平台: 'https://www.smartedu.cn'
 
-# ============================================================
-# 主题设置
-# ============================================================
+# Theme 主题设置
 theme:
   name: material
   features:
     - navigation.tabs
-    - navigation.expand
-  language: zh
+  language: 'zh'
   font:
-    text: Fira Sans
-    code: Fira Mono
+    text: 'Fira Sans'
+    code: 'Fira Mono'
   palette:
-    - scheme: default
-      primary: white
-      accent: red
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to dark mode
-    - scheme: slate
-      primary: black
-      accent: teal
-      toggle:
-        icon: material/weather-night
-        name: Switch to light mode
-
-# ============================================================
-# 底部版权信息
-# ============================================================
-copyright:
-  本站总访问量 <span id="vercount_value_site_pv">Loading</span> 次 ·
-  访客数 <span id="vercount_value_site_uv">Loading</span> 人
-  <br>
-  人的操作系统 版权所有 Copyright © 2025 - present caozuoxitong.ren All Rights Reserved.
-# ============================================================
-# 额外配置
-# ============================================================
-# extra:
-#   social:
-#     - icon: fontawesome/solid/paper-plane
-#       link: mailto:<你的邮箱>
-#       name: 联系邮箱
-
-# ============================================================
-# Markdown 扩展
-# ============================================================
-markdown_extensions:
-  - attr_list
-  - pymdownx.arithmatex:
-      generic: true
-      tex_inline_wrap: ['\(', '\)', '$', '$']
-      tex_block_wrap: ['\[', '\]', '$$', '$$']
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - toc:
-      permalink: true
-      slugify: !!python/object/apply:pymdownx.slugs.slugify {}
-
-# ============================================================
-# 额外加载的 JavaScript（按顺序）
-# ============================================================
-extra_javascript:
-  # MathJax：先配置，后主库
-  - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-  # Mermaid：先主库，后初始化
-  - javascripts/mermaid.min.js
-  - javascripts/mermaid.js
-
-  # 外链新标签打开
-  - javascripts/external-links.js
-
-  # 访问计数器
-  - https://vercount.one/js
+      # Toggle light mode
+      - scheme: default
+        primary: white
+        accent: red
+        toggle:
+          icon: material/weather-sunny
+          name: Switch to dark mode
+      # Toggle dark mode
+      - scheme: slate
+        primary: black
+        accent: teal
+        toggle:
+          icon: material/weather-night
+          name: Switch to light mode
