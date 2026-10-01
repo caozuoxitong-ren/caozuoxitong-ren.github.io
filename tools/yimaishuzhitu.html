@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>义脉树枝图生成器</title>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?c6c9a166afbec0d796dd0a5d7075351a";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      </script>
+    <style>
+        /* 按钮组通用样式（移到输入/输出框外部，贴上边缘） */
+        .font-controls {
+            position: absolute;
+            top: -28px;
+            z-index: 1;
+            display: flex;
+            gap: 6px;
+        }
+        .font-controls.left { left: 0; }
+        .font-controls.right { right: 0; }
+    
+        /* ===== 轻量“幽灵按钮”风格 =====
+           默认状态：透明底 + 浅灰字 + 淡边框，低调不抢眼
+           悬停状态：蓝色填充 + 白字，才真正凸显 */
+        .font-controls button {
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: normal;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            color: #8595a8;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            transition: all 0.25s ease;
+            width: auto;
+            cursor: pointer;
+            box-shadow: none;
+            line-height: 1.4;
+        }
+    
+        .font-controls button:hover {
+            background: #5dade2;
+            color: #ffffff;
+            border-color: #5dade2;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(93, 173, 226, 0.25);
+        }
+
+        .font-controls button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* 提示气泡（复制成功 + 连点俏皮话 共用） */
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(46, 204, 113, 0.95);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+    
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            color: #2c3e50;
+            margin: 40px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background: #f0f4f8;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: auto;
+            margin: 0;
+            background: #f0f4f8;
+        }
+
+        .main-div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            min-height: auto;
+            margin: 30px 0;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            margin: 0 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: #2ecc71;
+            font-size: 18px;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 120px;
+        }
+
+        button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .button-container button {
+            position: relative;
+        }
+        .button-container button .sub-text {
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            right: 0;
+            font-size: 10px;
+            font-weight: normal;
+            color: #ffffff;
+            opacity: 0.9;
+            line-height: 1;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .container {
+            display: flex;
+            border: 1px solid rgb(203 213 225);
+            overflow: hidden;
+            justify-content: center;
+            width: 525px;
+            height: 500px;
+            max-width: 90vw;
+        }
+
+        /* ===== 行号列：外层负责裁剪，内层负责位移 ===== */
+        .numbers {
+            flex: 0 0 auto;
+            min-width: 40px;
+            padding: 0 8px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+            border-right: 1px solid rgb(203 213 225);
+            height: 500px;
+            position: relative;
+        }
+
+        .numbers-content {
+            will-change: transform;
+        }
+
+        /* ===== 输入框：固定行高 ===== */
+        .textarea {
+            flex: 1;
+            width: auto;
+            min-width: 0;
+            outline: none;
+            min-height: 10rem;
+            max-width: 90vw;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            height: 500px;
+            padding: 25px;
+            border: 3px solid #2ecc71;
+            border-radius: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .textarea-out {
+            outline: none;
+            min-height: 10rem;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            width: 475px;
+            max-width: 90vw;
+            height: 500px;
+            padding: 25px;
+            border: 3px solid #2ecc71;
+            border-radius: 10px;
+            font-size: 14px;
+            resize: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar {
+            background: transparent;
+            height: 8px;
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 1;
+            background: rgb(148 163 184);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>义脉树枝图生成器</h1>
+    <div class="main-div">
+        <div style="position: relative;">
+            <div class="font-controls left">
+                <button onclick="adjustInputFontSize(-1)">A-</button>
+                <button onclick="adjustInputFontSize(1)">A+</button>
+                <button onclick="resetInputFontSize()">默认</button>
+            </div>
+            <div class="font-controls right">
+                <button onclick="clearInput()">清空</button>
+            </div>
+            <div class="container">
+                <div class="numbers" id="numbersCol">
+                    <div class="numbers-content" id="numbersContent"></div>
+                </div>
+                <textarea id="inputArea" class="textarea" placeholder="输入格式说明：
+1. 第一行表示主题名称，行首无短线。
+2. 目录每增加一级，行首短线多一条，短线须为半角。
+3. 允许有空行，自动忽略空行。
+4. 为保证对齐，输入内容自动转为全角。
+5. 若无法对齐，请调整字体为宋体。
+6. 输出框右上角按钮【A-/A+】调整输出字体的大小。
+7. 生成1/生成2，用于调整不同的排版样式。
+
+下面为输入示例：
+
+生物实体
+-非细胞实体
+--病毒
+---DNA病毒
+---RNA病毒
+--亚病毒因子
+---类病毒
+---卫星病毒
+---朊病毒
+-细胞生命
+--细菌域
+---变形菌门
+---厚壁菌门
+---放线菌门
+---蓝藻门
+--古菌域
+---广古菌门
+---泉古菌门
+---奇古菌门
+--真核生物域
+---古虫界
+---变形虫类
+---后鞭毛生物
+----领鞭毛虫类
+----真菌界
+----动物界
+---SAR超类群
+----根足虫类
+----囊泡虫类
+----不等鞭毛类
+---原始质体生物
+----灰胞藻
+----红藻
+----绿色植物"></textarea>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="transferText(1, true)">生成1 →<span class="sub-text">子树居中</span></button>
+            <button onclick="transferText(2, true)">生成2 →<span class="sub-text">整体居中</span></button>
+        </div>
+        <div style="position: relative;">
+            <div class="font-controls left">
+                <button onclick="copyOutput()">复制</button>
+            </div>
+            <div class="font-controls right">
+                <button onclick="resetOutputFontSize()">默认</button>
+                <button onclick="adjustFontSize(-1)">A-</button>
+                <button onclick="adjustFontSize(1)">A+</button>
+            </div>
+            <textarea id="outputArea" class="textarea-out" readonly height="auto" placeholder="　　　　　　　　　　　　　┌ＤＮＡ病毒
+　　　　　　　　　　┌病毒┤　　　　　
+　　　　┌非细胞实体┤　　└ＲＮＡ病毒
+　　　　│　　　　　│　　　　　┌类病毒
+　　　　│　　　　　└亚病毒因子┼卫星病毒
+　　　　│　　　　　　　　　　　└朊病毒
+　　　　│　　　　　　　　┌变形菌门
+生物实体┤　　　　┌细菌域┼厚壁菌门
+　　　　│　　　　│　　　├放线菌门
+　　　　│　　　　│　　　└蓝藻门
+　　　　│　　　　│　　　┌广古菌门
+　　　　│　　　　├古菌域┼泉古菌门
+　　　　└细胞生命┤　　　└奇古菌门
+　　　　　　　　　│　　　　　┌古虫界
+　　　　　　　　　│　　　　　├变形虫类
+　　　　　　　　　│　　　　　│　　　　　┌领鞭毛虫类
+　　　　　　　　　│　　　　　├后鞭毛生物┼真菌界
+　　　　　　　　　└真核生物域┤　　　　　└动物界
+　　　　　　　　　　　　　　　│　　　　　　┌根足虫类
+　　　　　　　　　　　　　　　├ＳＡＲ超类群┼囊泡虫类
+　　　　　　　　　　　　　　　│　　　　　　└不等鞭毛类
+　　　　　　　　　　　　　　　│　　　　　　┌灰胞藻
+　　　　　　　　　　　　　　　└原始质体生物┼红藻
+　　　　　　　　　　　　　　　　　　　　　　└绿色植物"></textarea>
+        </div>
+    </div>
+
+    <script>
+        /* ========== 字号调节 + 默认恢复 ========== */
+        const DEFAULT_OUTPUT_FONT_SIZE = 14;
+        const DEFAULT_INPUT_FONT_SIZE = 16;
+
+        let currentFontSize = DEFAULT_OUTPUT_FONT_SIZE;
+        function adjustFontSize(step) {
+            currentFontSize += step * 1;
+            currentFontSize = Math.max(1, Math.min(32, currentFontSize));
+            document.getElementById('outputArea').style.fontSize = currentFontSize + 'px';
+        }
+        function resetOutputFontSize() {
+            currentFontSize = DEFAULT_OUTPUT_FONT_SIZE;
+            document.getElementById('outputArea').style.fontSize = currentFontSize + 'px';
+        }
+
+        let currentInputFontSize = DEFAULT_INPUT_FONT_SIZE;
+        function adjustInputFontSize(step) {
+            currentInputFontSize += step * 1;
+            currentInputFontSize = Math.max(1, Math.min(32, currentInputFontSize));
+            document.getElementById('inputArea').style.fontSize = currentInputFontSize + 'px';
+            if (typeof window.refreshLineNumbers === 'function') {
+                window.refreshLineNumbers();
+            }
+        }
+        function resetInputFontSize() {
+            currentInputFontSize = DEFAULT_INPUT_FONT_SIZE;
+            document.getElementById('inputArea').style.fontSize = currentInputFontSize + 'px';
+            if (typeof window.refreshLineNumbers === 'function') {
+                window.refreshLineNumbers();
+            }
+        }
+
+        function clearInput() {
+            const inputArea = document.getElementById('inputArea');
+            inputArea.value = '';
+            inputArea.dispatchEvent(new Event('input', { bubbles: true }));
+            inputArea.focus();
+        }
+
+        /* ========== 复制功能 + 轻提示 ========== */
+        let toastTimer = null;
+
+        function showToast(msg) {
+            let toast = document.getElementById('copy-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'copy-toast';
+                toast.className = 'toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 1800);
+        }
+
+        function copyOutput() {
+            const outputArea = document.getElementById('outputArea');
+            let text = outputArea.value;
+            if (!text || text.trim() === '') {
+                text = outputArea.getAttribute('placeholder') || '';
+            }
+            if (!text || text.trim() === '') {
+                showToast('输出框为空，暂无可复制内容');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('已复制到剪贴板');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('已复制到剪贴板');
+                } else {
+                    showToast('复制失败，请手动选择复制');
+                }
+            } catch (err) {
+                showToast('复制失败，请手动选择复制');
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+
+    <script>
+        /* ===================== 默认示例内容 ===================== */
+        const DEFAULT_INPUT = [
+            '生物实体',
+            '-非细胞实体',
+            '--病毒',
+            '---DNA病毒',
+            '---RNA病毒',
+            '--亚病毒因子',
+            '---类病毒',
+            '---卫星病毒',
+            '---朊病毒',
+            '-细胞生命',
+            '--细菌域',
+            '---变形菌门',
+            '---厚壁菌门',
+            '---放线菌门',
+            '---蓝藻门',
+            '--古菌域',
+            '---广古菌门',
+            '---泉古菌门',
+            '---奇古菌门',
+            '--真核生物域',
+            '---古虫界',
+            '---变形虫类',
+            '---后鞭毛生物',
+            '----领鞭毛虫类',
+            '----真菌界',
+            '----动物界',
+            '---SAR超类群',
+            '----根足虫类',
+            '----囊泡虫类',
+            '----不等鞭毛类',
+            '---原始质体生物',
+            '----灰胞藻',
+            '----红藻',
+            '----绿色植物'
+        ].join('\n');
+
+        function halfToFull(str) {
+            let result = '';
+            const lines = str.split('\n');
+            for (let line of lines) {
+                let dashCount = 0;
+                while (line[dashCount] === '-') dashCount++;
+                const dashPart = line.substring(0, dashCount);
+                let contentPart = line.substring(dashCount);
+                let convertedContent = '';
+                for (let i = 0; i < contentPart.length; i++) {
+                    const charCode = contentPart.charCodeAt(i);
+                    if (charCode === 32) {
+                        convertedContent += '\u3000';
+                    } else if (charCode >= 33 && charCode <= 126) {
+                        convertedContent += String.fromCharCode(charCode + 65248);
+                    } else {
+                        convertedContent += contentPart.charAt(i);
+                    }
+                }
+                result += dashPart + convertedContent + '\n';
+            }
+            return result.slice(0, -1);
+        }
+
+        var s = ["诶，干啥呢！\n", "阿弥陀佛，施主稍安勿躁!\n", "连续点击也是一种乐趣~\n", "点得有点多了哟!\n", "请在左侧输入目录！！！\n"];
+        var tree = [];
+        var cnt = 0;
+
+        /* ===================== 连点俏皮话 =====================
+           当输入内容不变、连续点击同一个生成按钮 4 次及以上时，
+           每次都会弹出随机一句俏皮话，同时正常生成内容。 */
+        var s2 = [
+            "诶，干啥呢！",
+            "点击【默认】，可以恢复默认字体大小。",
+            "阿弥陀佛，施主稍安勿躁!",
+            "点击【A-/A+】，可以调节字体大小。",
+            "连续点击也是一种乐趣~",
+            "点击【清空】，可以清空输入框。",
+            "点得有点多了哟!",
+            "点击【复制】，可以复制输出框内容。"
+        ];
+
+        // 连点状态：记录上次点击时的输入内容、按钮类型、连续次数
+        var clickState = {
+            lastInput: null,
+            lastType: null,
+            count: 0
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputArea = document.getElementById('inputArea');
+            const outputArea = document.getElementById('outputArea');
+            inputArea.addEventListener('input', function() {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    if (inputArea.value.trim() === '') {
+                        outputArea.value = '';
+                        return;
+                    }
+                    transferText(1, false);
+                }, 500);
+            });
+        });
+
+        function transferText(type, allowDefault) {
+            if (allowDefault === undefined) allowDefault = true;
+
+            const inputArea = document.getElementById("inputArea");
+            const outputArea = document.getElementById("outputArea");
+
+            /* 连点检测：只在用户点击按钮时统计（allowDefault 为 true）
+               输入内容不变 + 同一个按钮 → 累加；否则重置为 1 */
+            if (allowDefault) {
+                const currentInput = inputArea.value;
+                if (clickState.lastInput === currentInput && clickState.lastType === type) {
+                    clickState.count++;
+                } else {
+                    clickState.count = 1;
+                    clickState.lastInput = currentInput;
+                    clickState.lastType = type;
+                }
+                // 连续点击 4 次及以上，每次都会弹出随机俏皮话
+                if (clickState.count >= 4) {
+                    const msg = s2[Math.floor(Math.random() * s2.length)];
+                    showToast(msg);
+                }
+            }
+
+            let inputText = inputArea.value;
+
+            if (allowDefault && inputText.trim().length === 0) {
+                inputText = DEFAULT_INPUT;
+            }
+
+            if (inputText.trim().length === 0) {
+                if (cnt == 0) outputArea.value = "";
+                cnt++;
+                if (cnt < 5) outputArea.value += "请在左侧输入目录！！！\n";
+                else outputArea.value += s[Math.ceil(Math.random() * 5) - 1];
+                return;
+            }
+            cnt = 0;
+
+            const fullWidthText = halfToFull(inputText);
+
+            if (fullWidthText.length == 0) {
+                outputArea.value = "请在左侧输入目录！！！\n";
+                return;
+            }
+
+            outputArea.value = "";
+
+            tree = [];
+            var lines = fullWidthText.split("\n");
+            var fa_stk = [];
+            for (var i = 0; i <= maxlevel; i++) fa_stk[i] = -1;
+            var top = -1;
+            fa_stk[++top] = 0;
+            var maxlevel = 0;
+            for (var i = 0, j = 0; j < lines.length; j++) {
+                if (lines[j].length == 0) continue;
+                var level = 0;
+                while (lines[j][level] == '-') level++;
+                if (level > maxlevel) maxlevel = level;
+
+                if (i == 0 && lines[j].length > 0 && lines[j][0] == '-') {
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：第一行为主题，行前不加短线。\n";
+                    return;
+                } else if (i > 0 && level == 0) {
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：请在行前加短线。\n";
+                    return;
+                } else if (level > 0 && top + 1 < level) {
+                    outputArea.value = "第 " + (j + 1) + " 行有错误：层次不合理。\n";
+                    return;
+                }
+
+                lines[j] = lines[j].substring(level);
+                var fa = -1;
+                if (level > 0) {
+                    while (top >= level) fa_stk[top--] = -1;
+                    fa = fa_stk[level - 1], fa_stk[++top] = i;
+                }
+                tree[i] = { id: i, value: lines[j], father: fa, children: [], level: level };
+                if (fa >= 0) tree[fa].children.push(i);
+                i++;
+            }
+
+            tree[0].indent = 0;
+            for (var i = 1; i < tree.length; i++) {
+                tree[i].indent = tree[tree[i].father].indent + tree[tree[i].father].value.length;
+            }
+            for (var i = tree.length - 1; i >= 0; i--) {
+                if (tree[i].children.length == 0) {
+                    tree[i].height = 1;
+                } else {
+                    var sum = 0;
+                    for (var j = 0; j < tree[i].children.length; j++) sum += tree[tree[i].children[j]].height;
+                    if (sum == 2 && tree[i].children.length == 2) {
+                        tree[i].height = 3;
+                        tree[tree[i].children[0]].height = 2;
+                    } else tree[i].height = sum;
+                }
+            }
+            tree[0].up = 0, tree[0].down = tree[0].height - 1;
+            setPos(0, 0, tree[0].height - 1);
+
+            if (type == 1) {
+                for (var i = tree.length - 1; i >= 0; i--) {
+                    if (tree[i].children.length == 0) continue;
+                    tree[i].targetRow = Math.floor((tree[tree[i].children[0]].targetRow + tree[tree[i].children[tree[i].children.length - 1]].targetRow) / 2);
+                }
+            } else {
+                for (var i = 0; i < tree.length; i++) {
+                    var cur = i;
+                    while (tree[cur].children.length >= 1 && tree[tree[cur].children[0]].targetRow == tree[cur].targetRow) {
+                        if (tree[cur].children.length > 1) tree[cur].targetRow++;
+                        cur = tree[cur].father;
+                        if (cur < 0 || cur >= tree.length) break;
+                        if (tree[cur].children.length == 1) tree[cur].targetRow = tree[tree[cur].children[0]].targetRow;
+                    }
+                }
+            }
+
+            var top = [], down = [];
+            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {
+                top[curlevel] = 1000000, down[curlevel] = 0;
+                for (var j = 0; j < tree.length; j++) {
+                    if (tree[j].level == curlevel) {
+                        if (tree[j].targetRow < top[curlevel]) top[curlevel] = tree[j].targetRow;
+                        if (tree[j].targetRow > down[curlevel]) down[curlevel] = tree[j].targetRow;
+                    }
+                }
+            }
+
+            var res = [];
+            for (var i = 0; i < tree[0].height; i++) res[i] = "";
+            for (var curlevel = 0; curlevel <= maxlevel; curlevel++) {
+                for (var i = 0; i < tree.length; i++) {
+                    if (tree[i].level != curlevel) continue;
+                    if (curlevel == 0) {
+                        for (var j = tree[i].up; j < tree[i].targetRow; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
+                        res[tree[i].targetRow] += tree[i].value;
+                        for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
+                    } else {
+                        var fa = tree[i].father;
+                        for (var j = tree[i].up; j < tree[i].targetRow; j++) {
+                            if (tree[fa].targetRow == j) res[j] += "┤";
+                            else if (i != tree[fa].children[0]) res[j] += "│";
+                            else res[j] += "　";
+                            for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
+                        }
+                        if (tree[fa].children.length == 1) res[tree[i].targetRow] += "－";
+                        else if (tree[fa].children.length > 1 && tree[fa].children[0] == i) res[tree[i].targetRow] += "┌";
+                        else if (tree[fa].children.length > 1 && tree[fa].children[tree[fa].children.length - 1] == i) res[tree[i].targetRow] += "└";
+                        else if (tree[i].targetRow == tree[fa].targetRow) res[tree[i].targetRow] += "┼";
+                        else res[tree[i].targetRow] += "├";
+                        res[tree[i].targetRow] += tree[i].value;
+                        for (var j = tree[i].targetRow + 1; j <= tree[i].down; j++) {
+                            if (tree[fa].targetRow == j) res[j] += "┤";
+                            else if (i != tree[fa].children[tree[fa].children.length - 1]) res[j] += "│";
+                            else res[j] += "　";
+                            for (var k = 0; k < tree[i].value.length; k++) res[j] += "　";
+                        }
+                    }
+                }
+            }
+
+            for (var i = 0; i < res.length; i++) outputArea.value += res[i] + "\n";
+
+            outputArea.animate([
+                { transform: 'translateY(-5px)', opacity: 0.9 },
+                { transform: 'translateY(0)', opacity: 1 }
+            ], {
+                duration: 300,
+                easing: 'ease-out'
+            });
+        }
+
+        function setPos(id, up, down) {
+            if (id < 0 || id >= tree.length) return;
+            tree[id].targetRow = Math.floor((up + down) / 2);
+            tree[id].up = up, tree[id].down = down;
+            var pre = 0;
+            for (var i = 0; i < tree[id].children.length; i++) {
+                var ch = tree[id].children[i];
+                setPos(ch, up + pre, up + pre + tree[ch].height - 1);
+                pre += tree[ch].height;
+            }
+        }
+    </script>
+
+    <script>
+        /* ========== 行号逻辑（transform 同步滚动，消除取整误差） ========== */
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('.textarea');
+            const numbersCol = document.getElementById('numbersCol');
+            const numbersContent = document.getElementById('numbersContent');
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            const parsePx = (v) => {
+                const n = parseFloat(v);
+                return isNaN(n) ? 0 : n;
+            };
+
+            function syncLineNumberStyle() {
+                const s = window.getComputedStyle(textarea);
+                ['fontFamily', 'fontSize', 'fontWeight', 'letterSpacing'].forEach((p) => {
+                    numbersContent.style[p] = s[p];
+                });
+                numbersContent.style.lineHeight = s.lineHeight;
+
+                const borderTop = parsePx(s.borderTopWidth);
+                const borderBottom = parsePx(s.borderBottomWidth);
+                const paddingTop = parsePx(s.paddingTop);
+                const paddingBottom = parsePx(s.paddingBottom);
+                numbersCol.style.paddingTop = (borderTop + paddingTop) + 'px';
+                numbersCol.style.paddingBottom = (borderBottom + paddingBottom) + 'px';
+            }
+
+            function syncScroll() {
+                numbersContent.style.transform = `translateY(${-textarea.scrollTop}px)`;
+            }
+
+            function calcStringLines(sentence, width, fontSize, fontFamily) {
+                if (!width) return 0;
+                context.font = `${fontSize} ${fontFamily}`;
+                const words = sentence.split('');
+                let lineCount = 0;
+                let currentLine = '';
+                for (let i = 0; i < words.length; i++) {
+                    const wordWidth = context.measureText(words[i]).width;
+                    const lineWidth = context.measureText(currentLine).width;
+                    if (lineWidth + wordWidth > width) {
+                        lineCount++;
+                        currentLine = words[i];
+                    } else {
+                        currentLine += words[i];
+                    }
+                }
+                if (currentLine.trim() !== '') lineCount++;
+                return lineCount;
+            }
+
+            function calcLines() {
+                const s = window.getComputedStyle(textarea);
+                const lines = textarea.value.split('\n');
+                const textareaWidth = textarea.getBoundingClientRect().width;
+                const textareaScrollWidth = textareaWidth - textarea.clientWidth;
+                const textareaPaddingLeft = parsePx(s.paddingLeft);
+                const textareaPaddingRight = parsePx(s.paddingRight);
+                const textareaContentWidth = textareaWidth - textareaPaddingLeft - textareaPaddingRight - textareaScrollWidth;
+                const numLines = lines.map(lineString =>
+                    calcStringLines(lineString, textareaContentWidth, s.fontSize, s.fontFamily)
+                );
+                let lineNumbers = [];
+                let i = 1;
+                while (numLines.length > 0) {
+                    const numLinesOfSentence = numLines.shift();
+                    lineNumbers.push(i);
+                    if (numLinesOfSentence > 1) {
+                        Array(numLinesOfSentence - 1)
+                            .fill('')
+                            .forEach((_) => lineNumbers.push(''));
+                    }
+                    i++;
+                }
+                return lineNumbers;
+            }
+
+            function initLineNumbers() {
+                syncLineNumberStyle();
+                const lines = calcLines();
+                const lineDoms = Array.from({
+                    length: lines.length,
+                }, (_, i) => `<div>${lines[i] || '&nbsp;'}</div>`);
+                numbersContent.innerHTML = lineDoms.join('');
+
+                const maxLineNumber = lines.length;
+                const digitCount = String(Math.max(maxLineNumber, 1)).length;
+                const s = window.getComputedStyle(textarea);
+                context.font = `${s.fontSize} ${s.fontFamily}`;
+                const digitsWidth = context.measureText('9'.repeat(digitCount)).width;
+                const paddingX = 16;
+                const borderX = 1;
+                const minWidth = Math.ceil(digitsWidth + paddingX + borderX);
+                numbersCol.style.minWidth = minWidth + 'px';
+
+                syncScroll();
+            }
+
+            window.refreshLineNumbers = initLineNumbers;
+
+            initLineNumbers();
+
+            const ro = new ResizeObserver(() => {
+                const rect = textarea.getBoundingClientRect();
+                numbersCol.style.height = `${rect.height}px`;
+                initLineNumbers();
+            });
+            ro.observe(textarea);
+
+            textarea.addEventListener('scroll', syncScroll, { passive: true });
+
+            textarea.addEventListener('input', () => {
+                initLineNumbers();
+            });
+        });
+    </script>
+</body>
+
+</html>
